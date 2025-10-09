@@ -1,5 +1,5 @@
 FROM python:3.10-slim AS base_stage
-ENV ROOT_DIR=/PythonProject-Template
+ENV ROOT_DIR=/BOLightningPipeline
 ARG MODE=release
 # MODE: 'release' or 'it' (will be interpreted as debug). This is used in the docker_entrypoint.sh script
 ENV MODE=${MODE}

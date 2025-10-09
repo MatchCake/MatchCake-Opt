@@ -29,7 +29,7 @@ jobs:
     - name: Build the sphinx docs
       run: |
         . ./venv/bin/activate
-        sphinx-apidoc -f -o ./sphinx/source ./src/<package_name>
+        sphinx-apidoc -f -o ./sphinx/source ./src/bolightningpipeline
         make -C sphinx clean
         python sphinx/clean_html_files.py
         make -C sphinx html

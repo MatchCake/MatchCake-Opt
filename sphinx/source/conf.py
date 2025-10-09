@@ -9,7 +9,7 @@ import sys
 import shutil
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 sys.path.insert(0, basedir)
-import python_template as pkg
+import bolightningpipeline as pkg
 
 
 _html_folders_formatted = {}
@@ -61,7 +61,7 @@ def move_private_folders(app, e):
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "PythonTemplate"
+project = "BOLightningPipeline"
 copyright = pkg.__copyright__.replace("Copyright ", "")
 author = pkg.__author__
 version = pkg.__version__
