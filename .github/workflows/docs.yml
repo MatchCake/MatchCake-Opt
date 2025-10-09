@@ -1,0 +1,63 @@
+name: Docs
+
+on:
+  push:
+    branches: ["main"]
+
+
+jobs:
+  Build-Docs:
+    if: false  # TODO: remove this line to enable this workflow
+    name: Build docs
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        python -m venv ./venv
+        . ./venv/bin/activate
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install --with=docs --no-interaction --no-ansi
+
+    - name: Build the sphinx docs
+      run: |
+        . ./venv/bin/activate
+        sphinx-apidoc -f -o ./sphinx/source ./src/<package_name>
+        make -C sphinx clean
+        python sphinx/clean_html_files.py
+        make -C sphinx html
+        touch sphinx/build/html/.nojekyll
+
+    - name: Checkout gh-pages branch
+      run: |
+        git checkout -b gh-pages
+        git init
+
+    - name: Copy build files to docs folder
+      run: |
+        . ./venv/bin/activate
+        cp -a sphinx/build/html/. docs/
+        python sphinx/make_html_files_list.py
+        rm -rf sphinx/build
+
+    - name: Commit to gh-pages branch
+      run: |
+        git add -f docs
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Update docs"
+
+    - name: Push to gh-pages branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: gh-pages
+        force: true
+        directory: docs
