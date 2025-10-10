@@ -125,4 +125,15 @@ print("⚡" * 20, "\nTest Metrics:\n", test_metrics, "\n", "⚡" * 20)
 
 ## Citation
 ```
+@INPROCEEDINGS{10821385,
+  author={Gince, Jérémie and Pagé, Jean-Michel and Armenta, Marco and Sarkar, Ayana and Kourtis, Stefanos},
+  booktitle={2024 IEEE International Conference on Quantum Computing and Engineering (QCE)}, 
+  title={Fermionic Machine Learning}, 
+  year={2024},
+  volume={01},
+  number={},
+  pages={1672-1678},
+  keywords={Runtime;Quantum entanglement;Computational modeling;Benchmark testing;Rendering (computer graphics);Hardware;Kernel;Integrated circuit modeling;Quantum circuit;Standards;Quantum machine learning;quantum kernel methods;matchgate circuits;fermionic quantum computation;data classification},
+  doi={10.1109/QCE60285.2024.00195}
+}
 ```
