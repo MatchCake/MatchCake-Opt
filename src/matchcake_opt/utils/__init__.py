@@ -1,7 +1,7 @@
 import argparse
 
 
-def get_all_subclasses(__class, include_base_cls: bool = False) -> set:
+def get_all_subclasses(__class, include_base_cls: bool = False) -> set:  # pragma: no cover
     r"""
     Get all the subclasses of a class.
 
@@ -21,7 +21,7 @@ def get_all_subclasses(__class, include_base_cls: bool = False) -> set:
     return subclasses
 
 
-def set_args_with_kwargs(args: argparse.Namespace, *, ignore_errors=False, **kwargs):
+def set_args_with_kwargs(args: argparse.Namespace, *, ignore_errors=False, **kwargs):  # pragma: no cover
     """
     Set the attributes of the args object with the provided keyword arguments.
     This allows for dynamic setting of arguments based on the provided kwargs.

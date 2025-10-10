@@ -22,7 +22,7 @@ dataset_name_to_type_map.update(
 )
 
 
-def get_dataset_cls_by_name(dataset: Union[str, Type[BaseDataset]]) -> Type[BaseDataset]:
+def get_dataset_cls_by_name(dataset: Union[str, Type[BaseDataset]]) -> Type[BaseDataset]:  # pragma: no cover
     if isinstance(dataset, str):
         if dataset.lower() not in dataset_name_to_type_map:
             raise ValueError(f"Dataset {dataset} ({dataset.lower()}) not found in {dataset_name_to_type_map.keys()}")

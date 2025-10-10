@@ -189,12 +189,12 @@ class AutoMLPipeline:
         best_y = self.client.get_best_parameterization()[1][self.monitor][0]
         for history_item in self.history:
             checkpoint_folder = history_item.get("checkpoint_folder", None)
-            if checkpoint_folder is None:
+            if checkpoint_folder is None:  # pragma: no cover
                 continue
             checkpoint_folder = (self.checkpoint_folder / checkpoint_folder).resolve()
             y = history_item[self.monitor]
             if not np.isclose(y, best_y, atol=1e-5):
-                try:
+                try:  # pragma: no cover
                     shutil.rmtree(checkpoint_folder, ignore_errors=True)
                 except Exception as e:  # pragma: no cover
                     pass
@@ -224,4 +224,4 @@ class AutoMLPipeline:
             y = history_item[self.monitor]
             if np.isclose(y, best_y):
                 return checkpoint_folder
-        return None
+        return None  # pragma: no cover

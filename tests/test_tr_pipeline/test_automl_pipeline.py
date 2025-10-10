@@ -9,8 +9,8 @@ import torch
 
 from matchcake_opt.datasets.datamodule import DataModule
 from matchcake_opt.modules.classification_model import ClassificationModel
-from matchcake_opt.tr_pipeline.lightning_pipeline import LightningPipeline
 from matchcake_opt.tr_pipeline.automl_pipeline import AutoMLPipeline
+from matchcake_opt.tr_pipeline.lightning_pipeline import LightningPipeline
 
 
 class TestAutoMLPipeline:
