@@ -19,6 +19,8 @@
 This package is plugin of [MatchCake](https://github.com/MatchCake/MatchCake). The main goal of this package is
 to implement optimization pipelines and torch-modules that are used in MatchCake's projects.
 
+If you’d like to request a new feature, dataset, or module, or if you have any questions or documentation requests, feel free to open a new GitHub issue [here](https://github.com/MatchCake/MatchCake-Opt/issues).
+
 ## Installation
 
 ### For users

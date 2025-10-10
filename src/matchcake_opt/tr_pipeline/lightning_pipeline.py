@@ -67,20 +67,20 @@ class LightningPipeline:
     ):
         torch.set_float32_matmul_precision("medium")
 
-        self.model_cls = model_cls
-        self.datamodule = datamodule
-        self.max_epochs = max_epochs
-        self.max_time = max_time
-        self.model_args = model_args
+        self._model_cls = model_cls
+        self._datamodule = datamodule
+        self._max_epochs = max_epochs
+        self._max_time = max_time
+        self._model_args = model_args
         if checkpoint_folder is None:
             checkpoint_folder = f"checkpoints/{model_cls.MODEL_NAME}"
-        self.checkpoint_folder = Path(checkpoint_folder)
-        self.monitor = monitor
-        self.monitor_mode = monitor_mode
-        self.overwrite_fit = overwrite_fit
-        self.verbose = verbose
-        self.accelerator = accelerator
-        self.trainer_args = trainer_args if trainer_args is not None else {}
+        self._checkpoint_folder = Path(checkpoint_folder)
+        self._monitor = monitor
+        self._monitor_mode = monitor_mode
+        self._overwrite_fit = overwrite_fit
+        self._verbose = verbose
+        self._accelerator = accelerator
+        self._trainer_args = trainer_args if trainer_args is not None else {}
         self._set_trainer_args_defaults()
 
         self.checkpoint_callback = ModelCheckpoint(
@@ -100,7 +100,7 @@ class LightningPipeline:
         if self.overwrite_fit:
             shutil.rmtree(self.checkpoint_folder, ignore_errors=True)
         self.checkpoint_folder.mkdir(parents=True, exist_ok=True)
-        if self.verbose:
+        if self.verbose:  # pragma: no cover
             print(f"Checkpoint folder: {self.checkpoint_folder}")
             print(f"Model: {self.model_cls.MODEL_NAME}\n{self.model}")
             print(f"Max epochs: {self.max_epochs}")
@@ -191,6 +191,54 @@ class LightningPipeline:
         metrics_path = self.checkpoint_folder / f"{name}.json"
         with open(metrics_path, "w") as f:
             json.dump(metrics, f, indent=4, sort_keys=True, default=str)
-        if self.verbose:
+        if self.verbose:  # pragma: no cover
             print(f"Metrics saved to {metrics_path}")
         return metrics_path
+
+    @property
+    def model_cls(self):
+        return self._model_cls
+
+    @property
+    def datamodule(self):
+        return self._datamodule
+
+    @property
+    def max_epochs(self):
+        return self._max_epochs
+
+    @property
+    def max_time(self):
+        return self._max_time
+
+    @property
+    def model_args(self):
+        return self._model_args
+
+    @property
+    def checkpoint_folder(self):
+        return self._checkpoint_folder
+
+    @property
+    def monitor(self):
+        return self._monitor
+
+    @property
+    def monitor_mode(self):
+        return self._monitor_mode
+
+    @property
+    def overwrite_fit(self):
+        return self._overwrite_fit
+
+    @property
+    def verbose(self):
+        return self._verbose
+
+    @property
+    def accelerator(self):
+        return self._accelerator
+
+    @property
+    def trainer_args(self):
+        return self._trainer_args

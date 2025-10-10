@@ -11,9 +11,9 @@ from matchcake_opt.datasets.cifar10_dataset import Cifar10Dataset
 class TestCifar10Dataset:
     MOCK_LEN = 10
 
-    @pytest.fixture
+    @pytest.fixture(scope="class")
     def data_dir(self):
-        path = Path(".tmp") / "data_dir"
+        path = Path(".tmp") / "data_dir" / "cifar10"
         yield path
         shutil.rmtree(path, ignore_errors=True)
 

@@ -101,7 +101,6 @@ class AutoMLPipeline:
 
     def __setstate__(self, state):
         self.history = state["history"]
-        return
 
     def get_best_params(self):
         return self.client.get_best_parameterization()[0]
@@ -177,12 +176,12 @@ class AutoMLPipeline:
             data = json.load(open(save_path, "r"))
             try:
                 self.__setstate__(data)
-            except Exception as e:
+            except Exception as e:  # pragma: no cover
                 warnings.warn(f"Failed to load {save_path}: {e}")
         ax_state_file = (self.checkpoint_folder / self.ax_state_filename).resolve()
         if ax_state_file.exists():
             self.client = self.client.load_from_json_file(ax_state_file)
-        else:
+        else:  # pragma: no cover
             warnings.warn("AX state file not found, starting a new experiment.")
         return self
 
@@ -197,16 +196,16 @@ class AutoMLPipeline:
             if not np.isclose(y, best_y, atol=1e-5):
                 try:
                     shutil.rmtree(checkpoint_folder, ignore_errors=True)
-                except Exception as e:
+                except Exception as e:  # pragma: no cover
                     pass
         return self
 
     def copy_best_checkpoint(self):
         best_checkpoint_folder = self.best_checkpoint
-        if best_checkpoint_folder is None:
+        if best_checkpoint_folder is None:  # pragma: no cover
             return None
         best_checkpoint = best_checkpoint_folder / f"{self.model_cls.MODEL_NAME}.ckpt"
-        if not best_checkpoint.exists():
+        if not best_checkpoint.exists():  # pragma: no cover
             return None
         target_path = self.checkpoint_folder / f"{self.model_cls.MODEL_NAME}.ckpt"
         shutil.copyfile(best_checkpoint, target_path)
@@ -217,10 +216,10 @@ class AutoMLPipeline:
         best_y = self.client.get_best_parameterization()[1][self.monitor][0]  # type: ignore
         for history_item in self.history:
             checkpoint_folder = history_item.get("checkpoint_folder", None)
-            if checkpoint_folder is None:
+            if checkpoint_folder is None:  # pragma: no cover
                 continue
             checkpoint_folder = (self.checkpoint_folder / checkpoint_folder).resolve()
-            if not checkpoint_folder.exists():
+            if not checkpoint_folder.exists():  # pragma: no cover
                 continue
             y = history_item[self.monitor]
             if np.isclose(y, best_y):

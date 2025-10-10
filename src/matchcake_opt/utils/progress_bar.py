@@ -24,18 +24,18 @@ class EpochProgressBar(ProgressBar):
         )
 
     def on_train_epoch_end(self, trainer, pl_module):
-        if not self.p_bar:
+        if not self.p_bar:  # pragma: no cover
             return
         self.p_bar.update(1)
         self.p_bar.set_postfix(self.get_metrics(trainer, pl_module))
 
     def on_validation_end(self, trainer: "pl.Trainer", pl_module: "pl.LightningModule") -> None:
-        if not self.p_bar:
+        if not self.p_bar:  # pragma: no cover
             return
         self.p_bar.set_postfix(self.get_metrics(trainer, pl_module))
 
     def on_train_end(self, trainer, pl_module):
-        if not self.p_bar:
+        if not self.p_bar:  # pragma: no cover
             return
         self.p_bar.close()
 

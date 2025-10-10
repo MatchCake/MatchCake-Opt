@@ -77,7 +77,7 @@ class BaseModel(lightning.LightningModule):
         loss = self.train_loss(output, target)
         with torch.no_grad():
             self.log("train_loss", loss.detach().cpu(), prog_bar=True)
-            self._metrics.update(output, target)
+            self.train_metrics.update(output, target)
         return loss
 
     def validation_step(self, batch, batch_idx):

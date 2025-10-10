@@ -57,23 +57,23 @@ class DataModule(lightning.LightningDataModule):
     ):
         super().__init__()
         assert batch_size > 0, f"Batch size must be positive, got {batch_size}"
-        self.batch_size = batch_size
-        self.random_state = random_state
+        self._batch_size = batch_size
+        self._random_state = random_state
         assert 0 <= fold_id < self.N_FOLDS, f"Fold id {fold_id} is out of range [0, {self.N_FOLDS})"
-        self.fold_id = fold_id
+        self._fold_id = fold_id
         self._train_dataset, self._val_dataset = self._split_train_val_dataset(train_dataset)
         self._test_dataset = test_dataset
-        self.num_workers = num_workers
+        self._num_workers = num_workers
 
     def _split_train_val_dataset(self, dataset: Dataset):
         fold_ratio = 1 / self.N_FOLDS
         subsets = random_split(
             dataset,
             lengths=[fold_ratio for _ in range(self.N_FOLDS)],
-            generator=torch.Generator().manual_seed(self.random_state),
+            generator=torch.Generator().manual_seed(self._random_state),
         )
-        val_subset = subsets[self.fold_id]
-        train_subset_indexes = [i for i in range(self.N_FOLDS) if i != self.fold_id]
+        val_subset = subsets[self._fold_id]
+        train_subset_indexes = [i for i in range(self.N_FOLDS) if i != self._fold_id]
         train_subset: torch.utils.data.Dataset = torch.utils.data.ConcatDataset(
             [subsets[i] for i in train_subset_indexes]
         )
@@ -82,28 +82,28 @@ class DataModule(lightning.LightningDataModule):
     def train_dataloader(self):
         return DataLoader(
             self.train_dataset,
-            batch_size=self.batch_size,
+            batch_size=self._batch_size,
             shuffle=True,
-            num_workers=self.num_workers,
-            persistent_workers=self.num_workers > 0,
+            num_workers=self._num_workers,
+            persistent_workers=self._num_workers > 0,
             pin_memory=True,
         )
 
     def val_dataloader(self):
         return DataLoader(
             self.val_dataset,
-            batch_size=self.batch_size,
-            num_workers=self.num_workers,
-            persistent_workers=self.num_workers > 0,
+            batch_size=self._batch_size,
+            num_workers=self._num_workers,
+            persistent_workers=self._num_workers > 0,
             pin_memory=True,
         )
 
     def test_dataloader(self):
         return DataLoader(
             self.test_dataset,
-            batch_size=self.batch_size,
-            num_workers=self.num_workers,
-            persistent_workers=self.num_workers > 0,
+            batch_size=self._batch_size,
+            num_workers=self._num_workers,
+            persistent_workers=self._num_workers > 0,
             pin_memory=True,
         )
 

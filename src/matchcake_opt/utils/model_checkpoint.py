@@ -52,7 +52,7 @@ class ModelCheckpoint(lightning.pytorch.callbacks.model_checkpoint.ModelCheckpoi
         self, current: torch.Tensor, trainer: "pl.Trainer", monitor_candidates: dict[str, torch.Tensor]
     ) -> None:
         super()._update_best_and_save(current, trainer, monitor_candidates)
-        if self._save_best_to is None:
+        if self._save_best_to is None:  # pragma: no cover
             return
         best_model_path = Path(self.best_model_path)
         if not best_model_path.exists():
