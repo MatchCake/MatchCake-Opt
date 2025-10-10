@@ -7,7 +7,6 @@ on:
 
 jobs:
   Build-Docs:
-    if: false  # TODO: remove this line to enable this workflow
     name: Build docs
     runs-on: ubuntu-latest
 

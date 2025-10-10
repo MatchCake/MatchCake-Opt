@@ -1,5 +1,5 @@
 [project]
-name = "BOLightningPipeline"
+name = "MatchCake-Opt"
 version = "0.0.1"
 dynamic = ["readme"]
 description = ""
@@ -14,10 +14,10 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.10,<4"
+requires-python = ">=3.10,<3.13"
 dependencies = [
     "numpy (>=1.23,<3.0.0)",
-    "setuptools>=65.5.1",
+    "setuptools (>=65.5.1,<=80.9.0)",
     "pythonbasictools>=0.0.3",
     "psutil>=5.9.6",
     "importlib-metadata (>=8.7.0,<9.0.0)",
@@ -59,8 +59,7 @@ where = ["src"]
 
 [tool.poetry]
 package-mode = true
-packages = [{include = "bolightningpipeline", from="src"}]
-
+packages = [{include = "matchcake_opt", from="src"}]
 
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^6.1.1"
@@ -87,22 +86,6 @@ groundwork-sphinx-theme = "^1.1.1"
 karma-sphinx-theme = "^0.0.8"
 sphinx-mdinclude = "^0.6.2"
 
-[[tool.poetry.source]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
-priority = "explicit"
-
-[[tool.poetry.source]]
-name = "pytorch-cuda"
-url = "https://download.pytorch.org/whl/cu128"
-priority = "explicit"
-
-
-[tool.poetry.dependencies]
-torch = [
-    {version=">=2.6.0,<3.0.0", platform = "darwin", source = "pytorch-cpu"},
-    {version=">=2.6.0,<3.0.0", platform = "!=darwin", source = "pytorch-cuda"}
-]
 
 [tool.pytest.ini_options]
 pythonpath = [
@@ -124,6 +107,19 @@ exclude_also = [
 [[tool.mypy.overrides]]
 module = [
     "pythonbasictools",
+    "medmnist",
+    "torchvision",
+    "torchvision.transforms",
+    "torchvision.transforms.v2",
+    "torchvision.datasets",
+    "sklearn.datasets",
+    "sklearn.model_selection",
+    "sklearn.preprocessing",
+    "sklearn.compose",
+    "tqdm",
+    "pandas",
+    "psutil",
+    "matchcake.utils",
 ]
 ignore_missing_imports = true
 
