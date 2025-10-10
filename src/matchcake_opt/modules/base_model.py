@@ -1,11 +1,11 @@
 import argparse
-from typing import Any, Optional, Dict
 import warnings
+from typing import Any, Dict, Optional
 
 import lightning
 import torch
-from torchmetrics import MetricCollection
 from ax import RangeParameterConfig
+from torchmetrics import MetricCollection
 
 
 class BaseModel(lightning.LightningModule):

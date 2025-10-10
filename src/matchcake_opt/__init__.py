@@ -8,8 +8,8 @@ __author__ = "Jérémie Gince"
 __email__ = "gincejeremie@gmail.com"
 __copyright__ = "Copyright 2025, Jérémie Gince"
 __license__ = "Apache 2.0"
-__url__ = "https://github.com/MatchCake/BOLightningPipeline"
-__package__ = "bolightningpipeline"
+__url__ = "https://github.com/MatchCake/MatchCake-Opt"
+__package__ = "matchcake_opt"
 __version__ = importlib_metadata.version(__package__)
 
 import warnings

@@ -18,7 +18,7 @@ class MetadataFile(RunOutputFile):
         **kwargs,
     ):
         super().__init__(
-            output_dir=output_dir,
+            output_dir=output_dir,  # type: ignore
             filename=filename,
             ext=self.EXT,
             data=data or {},

@@ -1,12 +1,12 @@
 import argparse
-from typing import Any, Optional, Dict
 import warnings
+from typing import Any, Dict, Optional
 
 import lightning
 import torch
-from torchmetrics import MetricCollection, Accuracy, F1Score, Recall, Precision, AUROC
 from ax import RangeParameterConfig
 from matchcake.utils import torch_utils
+from torchmetrics import AUROC, Accuracy, F1Score, MetricCollection, Precision, Recall
 
 from .base_model import BaseModel
 

@@ -1,10 +1,11 @@
 import argparse
 from typing import Optional
-import psutil
 
 import lightning
+import psutil
 import torch
-from torch.utils.data import DataLoader, Dataset, random_split, ConcatDataset, Subset
+from torch.utils.data import ConcatDataset, DataLoader, Dataset, Subset, random_split
+
 from .base_dataset import BaseDataset
 
 
@@ -16,12 +17,12 @@ class DataModule(lightning.LightningDataModule):
 
     @classmethod
     def from_dataset_name(
-            cls,
-            dataset_name: str,
-            fold_id: int,
-            batch_size: int = DEFAULT_BATCH_SIZE,
-            random_state: int = DEFAULT_RANDOM_STATE,
-            num_workers: int = DEFAULT_NUM_WORKERS,
+        cls,
+        dataset_name: str,
+        fold_id: int,
+        batch_size: int = DEFAULT_BATCH_SIZE,
+        random_state: int = DEFAULT_RANDOM_STATE,
+        num_workers: int = DEFAULT_NUM_WORKERS,
     ) -> "DataModule":
         from . import get_dataset_cls_by_name
 
@@ -35,9 +36,7 @@ class DataModule(lightning.LightningDataModule):
         )
 
     @classmethod
-    def add_specific_args(
-            cls, parent_parser: Optional[argparse.ArgumentParser] = None
-    ) -> argparse.ArgumentParser:
+    def add_specific_args(cls, parent_parser: Optional[argparse.ArgumentParser] = None) -> argparse.ArgumentParser:
         if parent_parser is None:
             parent_parser = argparse.ArgumentParser()
         parser = parent_parser.add_argument_group(f"{cls.__name__} Arguments")
@@ -48,13 +47,13 @@ class DataModule(lightning.LightningDataModule):
         return parent_parser
 
     def __init__(
-            self,
-            train_dataset: BaseDataset,
-            test_dataset: BaseDataset,
-            fold_id: int,
-            batch_size: int = DEFAULT_BATCH_SIZE,
-            random_state: int = DEFAULT_RANDOM_STATE,
-            num_workers: int = DEFAULT_NUM_WORKERS,
+        self,
+        train_dataset: BaseDataset,
+        test_dataset: BaseDataset,
+        fold_id: int,
+        batch_size: int = DEFAULT_BATCH_SIZE,
+        random_state: int = DEFAULT_RANDOM_STATE,
+        num_workers: int = DEFAULT_NUM_WORKERS,
     ):
         super().__init__()
         assert batch_size > 0, f"Batch size must be positive, got {batch_size}"
@@ -71,11 +70,13 @@ class DataModule(lightning.LightningDataModule):
         subsets = random_split(
             dataset,
             lengths=[fold_ratio for _ in range(self.N_FOLDS)],
-            generator=torch.Generator().manual_seed(self.random_state)
+            generator=torch.Generator().manual_seed(self.random_state),
         )
         val_subset = subsets[self.fold_id]
         train_subset_indexes = [i for i in range(self.N_FOLDS) if i != self.fold_id]
-        train_subset = torch.utils.data.ConcatDataset([subsets[i] for i in train_subset_indexes])
+        train_subset: torch.utils.data.Dataset = torch.utils.data.ConcatDataset(
+            [subsets[i] for i in train_subset_indexes]
+        )
         return train_subset, val_subset
 
     def train_dataloader(self):

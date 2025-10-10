@@ -28,7 +28,7 @@ class AutoMLPipeline:
         if parent_parser is None:
             parent_parser = argparse.ArgumentParser()
         parent_parser = LightningPipeline.add_specific_args(parent_parser)
-        parser = parent_parser.add_argument_group(cls.__name__)
+        parser = parent_parser.add_argument_group(cls.__name__)  # type: ignore
         parser.add_argument(
             "--automl_iterations",
             type=int,
@@ -83,7 +83,7 @@ class AutoMLPipeline:
         self.client.configure_experiment(
             parameters=self.model_cls.HP_CONFIGS,
         )
-        self.client.experiment_name = f"{self.model_cls.MODEL_NAME}_experiment"
+        self.client.experiment_name = f"{self.model_cls.MODEL_NAME}_experiment"  # type: ignore
         self.client.configure_optimization(
             objective=self.monitor if self.monitor_mode == "max" else f"-{self.monitor}",
         )
@@ -214,7 +214,7 @@ class AutoMLPipeline:
 
     @property
     def best_checkpoint(self) -> Optional[Path]:
-        best_y = self.client.get_best_parameterization()[1][self.monitor][0]
+        best_y = self.client.get_best_parameterization()[1][self.monitor][0]  # type: ignore
         for history_item in self.history:
             checkpoint_folder = history_item.get("checkpoint_folder", None)
             if checkpoint_folder is None:

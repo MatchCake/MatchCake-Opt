@@ -1,7 +1,7 @@
-python_template
+matchcake_learning
 ====
 
 .. toctree::
    :maxdepth: 4
 
-   python_template
+   matchcake_opt

@@ -1,17 +1,13 @@
 from pathlib import Path
 from typing import Union
+
 from torch.utils.data import Dataset
 
 
 class BaseDataset(Dataset):
     DATASET_NAME = "base_dataset"
 
-    def __init__(
-            self,
-            data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
-            train: bool = True,
-            **kwargs
-    ):
+    def __init__(self, data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME, train: bool = True, **kwargs):
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.train = train

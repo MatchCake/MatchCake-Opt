@@ -3,9 +3,9 @@ from typing import Sequence, Union
 
 import numpy as np
 import torch
-from torchvision import transforms
 from medmnist import PathMNIST
 from torch.utils.data import ConcatDataset
+from torchvision import transforms
 from torchvision.transforms import ToTensor
 from torchvision.transforms.v2 import Compose
 
@@ -23,33 +23,26 @@ class PathMNISTDataset(BaseDataset):
     def to_long_tensor(y: Sequence[int]) -> torch.Tensor:
         return torch.tensor(y, dtype=torch.long)
 
-    def __init__(
-            self,
-            data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
-            train: bool = True,
-            **kwargs
-    ):
+    def __init__(self, data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME, train: bool = True, **kwargs):
         super().__init__(data_dir, train, **kwargs)
-        transform = Compose([
-            ToTensor(),
-            transforms.Normalize(0.0, 1.0),
-        ])
+        transform = Compose(
+            [
+                ToTensor(),
+                transforms.Normalize(0.0, 1.0),
+            ]
+        )
         target_transform = Compose([self.to_scalar_tensor, self.to_long_tensor])
         self._data = PathMNIST(
             root=self.data_dir,
             split="train" if self.train else "test",
             download=True,
             transform=transform,
-            target_transform=target_transform
+            target_transform=target_transform,
         )
         self._n_classes = np.unique(self._data.labels).size
         if self.train:
             val_dataset = PathMNIST(
-                root=self.data_dir,
-                split="val",
-                download=True,
-                transform=transform,
-                target_transform=target_transform
+                root=self.data_dir, split="val", download=True, transform=transform, target_transform=target_transform
             )
             self._data = ConcatDataset([self._data, val_dataset])
 

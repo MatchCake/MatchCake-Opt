@@ -1,5 +1,5 @@
 [project]
-name = "BOLightningPipeline"
+name = "MatchCake-Opt"
 version = "0.0.1"
 dynamic = ["readme"]
 description = ""
@@ -59,8 +59,7 @@ where = ["src"]
 
 [tool.poetry]
 package-mode = true
-packages = [{include = "bolightningpipeline", from="src"}]
-
+packages = [{include = "matchcake_opt", from="src"}]
 
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^6.1.1"
@@ -124,6 +123,19 @@ exclude_also = [
 [[tool.mypy.overrides]]
 module = [
     "pythonbasictools",
+    "medmnist",
+    "torchvision",
+    "torchvision.transforms",
+    "torchvision.transforms.v2",
+    "torchvision.datasets",
+    "sklearn.datasets",
+    "sklearn.model_selection",
+    "sklearn.preprocessing",
+    "sklearn.compose",
+    "tqdm",
+    "pandas",
+    "psutil",
+    "matchcake.utils",
 ]
 ignore_missing_imports = true
 

@@ -1,16 +1,16 @@
-# BOLightningPipeline
+# MatchCake-Opt
 
 
-[![Star on GitHub](https://img.shields.io/github/stars/MatchCake/BOLightningPipeline.svg?style=social)](https://github.com/MatchCake/BOLightningPipeline/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/MatchCake/BOLightningPipeline?style=social)](https://github.com/MatchCake/BOLightningPipeline/network/members)
+[![Star on GitHub](https://img.shields.io/github/stars/MatchCake/MatchCake-Opt.svg?style=social)](https://github.com/MatchCake/MatchCake-Opt/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/MatchCake/MatchCake-Opt?style=social)](https://github.com/MatchCake/MatchCake-Opt/network/members)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-310/)
-[![downloads](https://img.shields.io/pypi/dm/MatchCake)](https://pypi.org/project/MatchCake)
-[![PyPI version](https://img.shields.io/pypi/v/MatchCake)](https://pypi.org/project/MatchCake)
+[![downloads](https://img.shields.io/pypi/dm/MatchCake-Opt)](https://pypi.org/project/MatchCake-Opt)
+[![PyPI version](https://img.shields.io/pypi/v/MatchCake-Opt)](https://pypi.org/project/MatchCake-Opt)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-![Tests Workflow](https://github.com/MatchCake/BOLightningPipeline/actions/workflows/tests.yml/badge.svg)
-![Dist Workflow](https://github.com/MatchCake/BOLightningPipeline/actions/workflows/build_dist.yml/badge.svg)
-![Doc Workflow](https://github.com/MatchCake/BOLightningPipeline/actions/workflows/docs.yml/badge.svg)
+![Tests Workflow](https://github.com/MatchCake/MatchCake-Opt/actions/workflows/tests.yml/badge.svg)
+![Dist Workflow](https://github.com/MatchCake/MatchCake-Opt/actions/workflows/build_dist.yml/badge.svg)
+![Doc Workflow](https://github.com/MatchCake/MatchCake-Opt/actions/workflows/docs.yml/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 

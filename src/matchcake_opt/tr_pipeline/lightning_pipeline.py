@@ -1,8 +1,8 @@
 import argparse
+import json
 import os
 import shutil
 import time
-import json
 from pathlib import Path, PureWindowsPath
 from typing import Any, Dict, List, Optional, Type, Union
 
@@ -65,7 +65,7 @@ class LightningPipeline:
         trainer_args: Optional[Dict[str, Any]] = None,
         **model_args,
     ):
-        torch.set_float32_matmul_precision('medium')
+        torch.set_float32_matmul_precision("medium")
 
         self.model_cls = model_cls
         self.datamodule = datamodule
