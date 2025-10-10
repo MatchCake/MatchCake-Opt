@@ -115,6 +115,12 @@ test_metrics = lt_pipeline.run_test()
 print("⚡" * 20, "\nTest Metrics:\n", test_metrics, "\n", "⚡" * 20)
 ```
 
+## Notebooks
+
+For more detailed examples see
+- [notebooks/ligthning_pipeline_tutorial.ipynb](notebooks/ligthning_pipeline_tutorial.ipynb) for an introduction to the lightning pipeline.
+- [notebooks/automl_pipeline_tutorial.ipynb](notebooks/automl_pipeline_tutorial.ipynb) for an introduction to the AutoML pipeline.
+
 
 ## References
 
