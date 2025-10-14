@@ -30,9 +30,9 @@ With `python` and `pip` installed,
 pip install git+https://github.com/MatchCake/MatchCake-Opt
 ```
 
-With `poetry` installed,
+With `uv` installed,
 ```bash
-poetry add "git+https://github.com/MatchCake/MatchCake-Opt"
+uv add "git+https://github.com/MatchCake/MatchCake-Opt"
 ```
 
 
@@ -42,16 +42,17 @@ With `python` and `pip` installed, run the following commands to install the dep
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install poetry
-python -m poetry install
+pip install uv
+uv sync --dev
 ```
 
-With `poetry` installed, run the following commands to install the dependencies:
+With `uv` installed, run the following commands to install the dependencies:
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-poetry install
+uv venv .venv
+uv sync --dev
 ```
+
+If you'd like to contribute to this repository, please do so by submitting pull requests to the `dev` branch. Thank you!
 
 ## Quick Usage Exemple
 
