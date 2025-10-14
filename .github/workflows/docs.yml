@@ -26,16 +26,14 @@ jobs:
     - name: Install dependencies
       run: |
         uv venv .venv
-        . ./venv/bin/activate
         uv sync --locked --dev --group docs --extra cpu
 
     - name: Build the sphinx docs
       run: |
-        . ./venv/bin/activate
-        sphinx-apidoc -f -o ./sphinx/source ./src/bolightningpipeline
-        make -C sphinx clean
-        python sphinx/clean_html_files.py
-        make -C sphinx html
+        uv run sphinx-apidoc -f -o ./sphinx/source ./src/bolightningpipeline
+        uv run make -C sphinx clean
+        uv run python sphinx/clean_html_files.py
+        uv run make -C sphinx html
         touch sphinx/build/html/.nojekyll
 
     - name: Checkout gh-pages branch
@@ -45,9 +43,8 @@ jobs:
 
     - name: Copy build files to docs folder
       run: |
-        . ./venv/bin/activate
         cp -a sphinx/build/html/. docs/
-        python sphinx/make_html_files_list.py
+        uv run python sphinx/make_html_files_list.py
         rm -rf sphinx/build
 
     - name: Commit to gh-pages branch
