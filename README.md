@@ -35,6 +35,8 @@ With `uv` installed,
 uv add "git+https://github.com/MatchCake/MatchCake-Opt"
 ```
 
+To install the package with cu128 (CUDA), add `--extra cu128` to the installation commands above.
+
 
 ### For developers
 
