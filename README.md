@@ -93,7 +93,7 @@ class LinearNN(ClassificationModel):
     ):
         super().__init__(input_shape=input_shape, output_shape=output_shape, learning_rate=learning_rate, **kwargs)
         self.save_hyperparameters("learning_rate", "n_neurons")
-        self.nn = torch.Sequential(
+        self.nn = torch.nn.Sequential(
             torch.nn.Flatten(),
             torch.nn.LazyLinear(n_neurons), 
             torch.nn.ReLU(), 
@@ -107,7 +107,7 @@ class LinearNN(ClassificationModel):
     def output_size(self):
         return int(np.prod(self.output_shape))
 
-datamodule = DataModule.from_dataset_name("Digits2D")
+datamodule = DataModule.from_dataset_name("Digits2D", fold_id=0)
 automl_pipeline = AutoMLPipeline(model_cls=LinearNN, datamodule=datamodule)
 automl_pipeline.run()
 lt_pipeline, metrics = automl_pipeline.run_best_pipeline()
