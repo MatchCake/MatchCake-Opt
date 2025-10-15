@@ -79,7 +79,7 @@ class LinearNN(ClassificationModel):
         RangeParameterConfig(
             name="n_neurons",
             parameter_type="int",
-            bounds=(4, 16),
+            bounds=(4, 2048),
         ),
     ]
 
