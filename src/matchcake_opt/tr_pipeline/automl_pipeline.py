@@ -19,8 +19,8 @@ from .lightning_pipeline import LightningPipeline
 
 class AutoMLPipeline:
     DEFAULT_AUTOML_ITERATIONS = 32
-    DEFAULT_INNER_MAX_EPOCHS = 10_000
-    DEFAULT_INNER_MAX_TIME = "90:00:00:00"
+    DEFAULT_INNER_MAX_EPOCHS = 1024
+    DEFAULT_INNER_MAX_TIME = "00:01:00:00"
     DEFAULT_AUTOML_OVERWRITE_FIT = False
 
     @classmethod
