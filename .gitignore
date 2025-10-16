@@ -303,3 +303,5 @@ tmp_report_dir
 .tmp_report.json
 coverage.json
 /notebooks/Digits2D
+/notebooks/Cifar10
+/notebooks/data
