@@ -1,4 +1,5 @@
 from collections import Counter
+from typing import Sequence
 
 import numpy as np
 import torch
@@ -11,21 +12,6 @@ from .base_model import BaseModel
 
 class MaxcutModel(BaseModel):
     MODEL_NAME = "MaxcutModel"
-
-    @staticmethod
-    def bitstring_arr_to_str(bit_string_sample):
-        return "".join(str(bs) for bs in np.asarray(bit_string_sample, dtype=int).ravel())
-
-    @staticmethod
-    def bitstrings_to_arr(bit_string_samples):
-        if isinstance(bit_string_samples, str):
-            bit_string_samples = [bit_string_samples]
-        if isinstance(bit_string_samples, np.ndarray) and len(bit_string_samples.shape) == 1:
-            bit_string_samples = bit_string_samples.reshape(-1, 1)
-        return np.asarray([
-            [int(bit) for bit in bit_string_sample]
-            for bit_string_sample in bit_string_samples
-        ], dtype=int)
 
     def __init__(
         self,
@@ -57,7 +43,7 @@ class MaxcutModel(BaseModel):
         loss = self.train_loss(output)
         with torch.no_grad():
             self.log("train_loss", loss.detach().cpu(), prog_bar=True)
-            self.train_metrics.update(output)
+            self.train_metrics.update(inputs, output)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -66,7 +52,7 @@ class MaxcutModel(BaseModel):
             output = self(inputs)
             loss = self.val_loss(output)
             self.log(f"val_loss", loss, prog_bar=True)
-            self.val_metrics.update(output)
+            self.val_metrics.update(inputs, output)
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -75,11 +61,8 @@ class MaxcutModel(BaseModel):
             output = self(inputs)
             loss = self.val_loss(output)
             self.log(f"test_loss", loss, prog_bar=True)
-            self.test_metrics.update(output)
-            samples = self.sample(inputs)
-            components = self.compute_metrics_from_samples(samples)
-            components["energy"] = float(to_numpy(loss).item())
-        return components
+            self.test_metrics.update(inputs, output)
+        return loss
 
     def predict(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -92,27 +75,4 @@ class MaxcutModel(BaseModel):
             samples = self.sample(x)
         return samples
 
-    def compute_metrics_from_samples(self, samples: torch.Tensor) -> dict:
-        samples_arr = to_numpy(samples).astype(int)
-        samples_str = np.asarray(list(map(self.bitstring_arr_to_str, samples_arr)))
-        counts_str = Counter(samples_str)
-        counts_str_sorted_keys = list(sorted(list(counts_str.keys())))
-        counts_str_arr = np.asarray([counts_str[key] for key in counts_str_sorted_keys])
-        probs = counts_str_arr / np.sum(counts_str_arr)
-        bitstrings_arr = self.bitstrings_to_arr(counts_str_sorted_keys)
 
-        n_cut_edges = np.asarray([
-            len(self.get_cut_edges_from_sets(
-                np.arange(self.n_qubits)[key == 0],
-                np.arange(self.n_qubits)[key == 1]
-            ))
-            for key in bitstrings_arr
-        ])
-        components = {
-            "n_cut_edges": n_cut_edges.tolist(),
-            "probs": probs.tolist(),
-            "bit_strings": counts_str_sorted_keys,
-            "max_cut": int(np.max(n_cut_edges)),
-            "max_cut_state": counts_str_sorted_keys[np.argmax(n_cut_edges)],
-        }
-        return components
