@@ -16,6 +16,17 @@ class MaxcutModel(BaseModel):
     def bitstring_arr_to_str(bit_string_sample):
         return "".join(str(bs) for bs in np.asarray(bit_string_sample, dtype=int).ravel())
 
+    @staticmethod
+    def bitstrings_to_arr(bit_string_samples):
+        if isinstance(bit_string_samples, str):
+            bit_string_samples = [bit_string_samples]
+        if isinstance(bit_string_samples, np.ndarray) and len(bit_string_samples.shape) == 1:
+            bit_string_samples = bit_string_samples.reshape(-1, 1)
+        return np.asarray([
+            [int(bit) for bit in bit_string_sample]
+            for bit_string_sample in bit_string_samples
+        ], dtype=int)
+
     def __init__(
         self,
         input_shape: tuple[int, ...],
