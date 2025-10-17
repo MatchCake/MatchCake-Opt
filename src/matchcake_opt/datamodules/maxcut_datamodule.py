@@ -62,7 +62,7 @@ class MaxcutDataModule(DataModule):
         )
 
     def val_dataloader(self):
-        raise MisconfigurationException()
+        return []
 
     def test_dataloader(self):
         return DataLoader(

@@ -3,6 +3,7 @@ from collections import Counter
 import numpy as np
 import torch
 from matchcake.utils.torch_utils import to_numpy
+from torch_geometric.data import Data
 from torchmetrics import MetricCollection
 
 from .base_model import BaseModel
@@ -39,6 +40,33 @@ class MaxcutModel(BaseModel):
     def sample(self, x) -> torch.Tensor:
         raise NotImplementedError("Child classes must implement the sample method that generates the cut solution.")
 
+    def training_step(self, batch: Data, batch_idx):
+        inputs = batch
+        output = self(inputs)
+        loss = self.train_loss(output)
+        with torch.no_grad():
+            self.log("train_loss", loss.detach().cpu(), prog_bar=True)
+            self.train_metrics.update(output)
+        return loss
+
+    def validation_step(self, batch, batch_idx):
+        inputs = batch
+        with torch.no_grad():
+            output = self(inputs)
+            loss = self.val_loss(output)
+            self.log(f"val_loss", loss, prog_bar=True)
+            self.val_metrics.update(output)
+        return loss
+
+    def test_step(self, batch, batch_idx):
+        inputs = batch
+        with torch.no_grad():
+            output = self(inputs)
+            loss = self.val_loss(output)
+            self.log(f"test_loss", loss, prog_bar=True)
+            self.test_metrics.update(output)
+        return loss
+    
     def predict(self, x: torch.Tensor) -> dict:
         """
         Predicts the output for the given input tensor.
