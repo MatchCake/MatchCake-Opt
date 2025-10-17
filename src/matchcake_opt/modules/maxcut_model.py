@@ -66,8 +66,8 @@ class MaxcutModel(BaseModel):
             self.log(f"test_loss", loss, prog_bar=True)
             self.test_metrics.update(output)
         return loss
-    
-    def predict(self, x: torch.Tensor) -> dict:
+
+    def predict(self, x: torch.Tensor) -> torch.Tensor:
         """
         Predicts the output for the given input tensor.
         :param x: Input tensor.
@@ -76,8 +76,7 @@ class MaxcutModel(BaseModel):
         self.eval()
         with torch.no_grad():
             samples = self.sample(x)
-            output = self(x)
-        return output
+        return samples
 
     def compute_metrics_from_samples(self, samples: torch.Tensor) -> dict:
         samples_arr = to_numpy(samples).astype(int)

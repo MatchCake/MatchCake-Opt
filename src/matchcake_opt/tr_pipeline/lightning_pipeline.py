@@ -125,15 +125,18 @@ class LightningPipeline:
 
     def run_validation(self) -> Dict[str, Any]:
         start_time = time.perf_counter()
-        metrics: Dict[str, Any] = self.trainer.validate(  # type: ignore
+        metrics: List[Dict[str, Any]] = self.trainer.validate(  # type: ignore
             model=self.model,
             datamodule=self.datamodule,
             verbose=self.verbose,
             ckpt_path="best",
-        )[0]
+        )
+        if len(metrics) == 0:
+            return {}
+        metrics_0: Dict[str, Any] = metrics[0]
         end_time = time.perf_counter()
-        metrics["validation_time"] = end_time - start_time
-        return metrics
+        metrics_0["validation_time"] = end_time - start_time
+        return metrics_0
 
     def run_test(self) -> Dict[str, Any]:
         start_time = time.perf_counter()
