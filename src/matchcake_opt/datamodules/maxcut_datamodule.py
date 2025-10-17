@@ -5,6 +5,7 @@ from typing import Optional
 import lightning
 import psutil
 import torch
+from lightning_fabric.utilities.exceptions import MisconfigurationException
 from torch_geometric.loader import DataLoader
 
 from ..datasets.maxcut_dataset import MaxcutDataset
@@ -61,7 +62,7 @@ class MaxcutDataModule(DataModule):
         )
 
     def val_dataloader(self):
-        return None
+        raise MisconfigurationException()
 
     def test_dataloader(self):
         return DataLoader(
