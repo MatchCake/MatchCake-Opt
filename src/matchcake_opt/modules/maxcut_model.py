@@ -65,7 +65,10 @@ class MaxcutModel(BaseModel):
             loss = self.val_loss(output)
             self.log(f"test_loss", loss, prog_bar=True)
             self.test_metrics.update(output)
-        return loss
+            samples = self.sample(inputs)
+            components = self.compute_metrics_from_samples(samples)
+            components["energy"] = float(to_numpy(loss).item())
+        return components
 
     def predict(self, x: torch.Tensor) -> torch.Tensor:
         """
