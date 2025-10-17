@@ -11,6 +11,7 @@ class BaseDataset(Dataset):
         self._data_dir = Path(data_dir)
         self._data_dir.mkdir(parents=True, exist_ok=True)
         self._train = train
+        self._kwargs = kwargs
 
     def __getitem__(self, item):
         raise NotImplementedError()

@@ -6,7 +6,7 @@ import psutil
 import torch
 from torch.utils.data import ConcatDataset, DataLoader, Dataset, Subset, random_split
 
-from .base_dataset import BaseDataset
+from ..datasets.base_dataset import BaseDataset
 
 
 class DataModule(lightning.LightningDataModule):
@@ -24,7 +24,7 @@ class DataModule(lightning.LightningDataModule):
         random_state: int = DEFAULT_RANDOM_STATE,
         num_workers: int = DEFAULT_NUM_WORKERS,
     ) -> "DataModule":
-        from . import get_dataset_cls_by_name
+        from ..datasets import get_dataset_cls_by_name
 
         return cls(
             train_dataset=get_dataset_cls_by_name(dataset_name)(train=True),

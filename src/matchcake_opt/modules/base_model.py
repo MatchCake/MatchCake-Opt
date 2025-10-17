@@ -111,7 +111,6 @@ class BaseModel(lightning.LightningModule):
         self.eval()
         with torch.no_grad():
             output = self(x)
-            output = torch.softmax(output, dim=1)
         return output
 
     def on_train_epoch_start(self) -> None:
