@@ -12,7 +12,7 @@ from ax.api.client import Client
 from pythonbasictools.collections_tools import list_insert_replace_at, ravel_dict
 from tqdm import tqdm
 
-from ..datasets.datamodule import DataModule
+from ..datamodules.datamodule import DataModule
 from ..modules.base_model import BaseModel
 from .lightning_pipeline import LightningPipeline
 

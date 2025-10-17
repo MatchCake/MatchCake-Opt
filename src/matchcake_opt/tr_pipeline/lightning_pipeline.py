@@ -12,7 +12,7 @@ from lightning.pytorch.callbacks.callback import Callback
 from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.profilers import SimpleProfiler
 
-from ..datasets.datamodule import DataModule
+from ..datamodules.datamodule import DataModule
 from ..modules.base_model import BaseModel
 from ..utils.model_checkpoint import ModelCheckpoint
 from ..utils.progress_bar import EpochProgressBar
