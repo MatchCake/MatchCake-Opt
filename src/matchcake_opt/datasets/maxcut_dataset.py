@@ -77,7 +77,7 @@ class MaxcutDataset(BaseDataset):
         return nx.erdos_renyi_graph(self._n_nodes, self._kwargs["p"], seed=self._seed)
 
     def _build_circular_graph(self) -> nx.Graph:
-        return nx.circulant_graph(self._n_nodes)
+        return nx.circulant_graph(self._n_nodes, [1])
 
     def _get_lower_energy_bound(self) -> float:
         r"""
