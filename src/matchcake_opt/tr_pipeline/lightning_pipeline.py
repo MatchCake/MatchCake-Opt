@@ -138,12 +138,12 @@ class LightningPipeline:
         metrics_0["validation_time"] = end_time - start_time
         return metrics_0
 
-    def run_test(self) -> Dict[str, Any]:
+    def run_test(self, ckpt_path="best") -> Dict[str, Any]:
         start_time = time.perf_counter()
         metrics: Dict[str, Any] = self.trainer.test(  # type: ignore
             model=self.model,
             datamodule=self.datamodule,
-            ckpt_path="best",
+            ckpt_path=ckpt_path,
         )[0]
         end_time = time.perf_counter()
         metrics["test_time"] = end_time - start_time
