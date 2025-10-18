@@ -13,12 +13,13 @@ class MaxcutDataset(BaseDataset):
     GRAPH_TYPES_TO_PARAMS = {
         "regular": ["d"],
         "erdos_renyi": ["p"],
+        "circular": [],
     }
 
     def __init__(
             self,
             n_nodes: int,
-            graph_type: Literal["regular", "erdos_renyi"],
+            graph_type: Literal["regular", "erdos_renyi", "circular"],
             seed: int = 0,
             data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
             train: bool = True,
@@ -46,6 +47,8 @@ class MaxcutDataset(BaseDataset):
             self._nx_graph = self._build_regular_graph()
         elif self._graph_type == "erdos_renyi":
             self._nx_graph = self._build_erdos_renyi_graph()
+        elif self._graph_type == "circular":
+            self._nx_graph = self._build_circular_graph()
         else:
             raise ValueError(f"Unsupported graph type: {self._graph_type}")
         self._data = from_networkx(self._nx_graph)
@@ -72,6 +75,9 @@ class MaxcutDataset(BaseDataset):
 
     def _build_erdos_renyi_graph(self) -> nx.Graph:
         return nx.erdos_renyi_graph(self._n_nodes, self._kwargs["p"], seed=self._seed)
+
+    def _build_circular_graph(self) -> nx.Graph:
+        return nx.circulant_graph(self._n_nodes)
 
     def _get_lower_energy_bound(self) -> float:
         r"""
