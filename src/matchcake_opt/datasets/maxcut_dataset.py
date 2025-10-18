@@ -41,7 +41,7 @@ class MaxcutDataset(BaseDataset):
         if missing_params:
             raise ValueError(f"Missing parameters for graph type '{graph_type}': {', '.join(missing_params)}")
 
-    def build_data(self) -> "MaxcutDataset":
+    def prepare_data(self) -> None:
         if self._graph_type == "regular":
             self._nx_graph = self._build_regular_graph()
         elif self._graph_type == "erdos_renyi":
@@ -49,16 +49,13 @@ class MaxcutDataset(BaseDataset):
         else:
             raise ValueError(f"Unsupported graph type: {self._graph_type}")
         self._data = from_networkx(self._nx_graph)
+        self._data.y = torch.tensor([self._get_lower_energy_bound(), self._get_upper_n_cut_bound()], dtype=torch.float)
         self._built_flag = True
-        return self
+        return
 
     def __getitem__(self, item):
         if not self._built_flag:
-            self.build_data()
-        if self.train:
-            self._data.y = torch.tensor([self._get_lower_energy_bound()], dtype=torch.float)
-        else:
-            self._data.y = torch.tensor([self._get_upper_n_cut_bound()], dtype=torch.float)
+            self.prepare_data()
         return self._data
 
     def __len__(self):

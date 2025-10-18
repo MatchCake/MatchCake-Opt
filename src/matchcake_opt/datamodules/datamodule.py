@@ -61,9 +61,17 @@ class DataModule(lightning.LightningDataModule):
         self._random_state = random_state
         assert 0 <= fold_id < self.N_FOLDS, f"Fold id {fold_id} is out of range [0, {self.N_FOLDS})"
         self._fold_id = fold_id
-        self._train_dataset, self._val_dataset = self._split_train_val_dataset(train_dataset)
+        self._given_train_dataset = train_dataset
         self._test_dataset = test_dataset
         self._num_workers = num_workers
+        self._train_dataset: Optional[ConcatDataset] = None
+        self._val_dataset: Optional[Subset] = None
+
+    def prepare_data(self) -> None:
+        self._given_train_dataset.prepare_data()
+        self._test_dataset.prepare_data()
+        self._train_dataset, self._val_dataset = self._split_train_val_dataset(self._given_train_dataset)
+        return
 
     def _split_train_val_dataset(self, dataset: Dataset):
         fold_ratio = 1 / self.N_FOLDS

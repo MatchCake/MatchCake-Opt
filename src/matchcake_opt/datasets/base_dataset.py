@@ -19,6 +19,9 @@ class BaseDataset(Dataset):
     def __len__(self):
         raise NotImplementedError()
 
+    def prepare_data(self):
+        return
+
     def get_input_shape(self) -> tuple:
         return tuple(self[0][0].shape)  # pragma: no cover
 
