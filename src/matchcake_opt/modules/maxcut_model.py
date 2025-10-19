@@ -46,7 +46,7 @@ class MaxcutModel(BaseModel):
             self.train_metrics.update(inputs, output)
         return loss
 
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch: Data, batch_idx):
         inputs = batch
         with torch.no_grad():
             output = self(inputs)
@@ -55,7 +55,7 @@ class MaxcutModel(BaseModel):
             self.val_metrics.update(inputs, output)
         return loss
 
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch: Data, batch_idx):
         inputs = batch
         with torch.no_grad():
             output = self(inputs)

@@ -62,7 +62,14 @@ class MaxcutDataModule(DataModule):
         )
 
     def val_dataloader(self):
-        return []
+        return DataLoader(
+            self.train_dataset,
+            batch_size=self._batch_size,
+            shuffle=False,
+            num_workers=self._num_workers,
+            persistent_workers=self._num_workers > 0,
+            pin_memory=True,
+        )
 
     def test_dataloader(self):
         return DataLoader(
