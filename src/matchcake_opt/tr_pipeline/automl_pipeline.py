@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple, Type
 import numpy as np
 import pythonbasictools as pbt
 from ax.api.client import Client
+from ax.exceptions.core import SearchSpaceExhausted
 from pythonbasictools.collections_tools import list_insert_replace_at, ravel_dict
 from tqdm import tqdm
 
@@ -146,7 +147,10 @@ class AutoMLPipeline:
     def run(self):
         p_bar = tqdm(initial=len(self.history), total=self.automl_iterations, desc="AutoML iterations")
         for iteration in range(p_bar.n, p_bar.total):
-            trials = self.client.get_next_trials(max_trials=1)
+            try:
+                trials = self.client.get_next_trials(max_trials=1)
+            except SearchSpaceExhausted:
+                break
             for trial_index, parameters in trials.items():
                 new_y = self(parameters, iteration)
                 self.client.complete_trial(trial_index, {self.monitor: new_y[self.monitor]})
