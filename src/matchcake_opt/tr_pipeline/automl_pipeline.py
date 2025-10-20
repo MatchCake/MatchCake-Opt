@@ -90,7 +90,12 @@ class AutoMLPipeline:
         )
         self.pipeline_args = pipeline_args
         self.history: List[Dict[str, Any]] = []
-        if not self.automl_overwrite_fit:
+        if self.automl_overwrite_fit:
+            try:
+                shutil.rmtree(self.checkpoint_folder)
+            except Exception:
+                pass
+        else:
             self.maybe_load()
 
     def __getstate__(self):
