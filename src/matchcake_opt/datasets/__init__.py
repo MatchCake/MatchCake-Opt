@@ -6,6 +6,7 @@ from .cifar10_dataset import Cifar10Dataset
 from .digits2d import Digits2D
 from .mnist_dataset import MNISTDataset
 from .pathmnist_dataset import PathMNISTDataset
+from .retinamnist_dataset import RetinaMNISTDataset
 
 dataset_name_to_type_map: Dict[str, Type[BaseDataset]] = {
     _cls.DATASET_NAME: _cls
