@@ -1,12 +1,12 @@
 import argparse
-from typing import Optional
+from typing import Any, Optional, Tuple
 
 import lightning
 import psutil
 import torch
 from torch.utils.data import ConcatDataset, DataLoader, Dataset, Subset, random_split
 
-from .base_dataset import BaseDataset
+from ..datasets.base_dataset import BaseDataset
 
 
 class DataModule(lightning.LightningDataModule):
@@ -24,7 +24,7 @@ class DataModule(lightning.LightningDataModule):
         random_state: int = DEFAULT_RANDOM_STATE,
         num_workers: int = DEFAULT_NUM_WORKERS,
     ) -> "DataModule":
-        from . import get_dataset_cls_by_name
+        from ..datasets import get_dataset_cls_by_name
 
         return cls(
             train_dataset=get_dataset_cls_by_name(dataset_name)(train=True),
@@ -61,11 +61,19 @@ class DataModule(lightning.LightningDataModule):
         self._random_state = random_state
         assert 0 <= fold_id < self.N_FOLDS, f"Fold id {fold_id} is out of range [0, {self.N_FOLDS})"
         self._fold_id = fold_id
-        self._train_dataset, self._val_dataset = self._split_train_val_dataset(train_dataset)
+        self._given_train_dataset = train_dataset
         self._test_dataset = test_dataset
         self._num_workers = num_workers
+        self._train_dataset: Optional[ConcatDataset] = None
+        self._val_dataset: Optional[Subset] = None
 
-    def _split_train_val_dataset(self, dataset: Dataset):
+    def prepare_data(self) -> None:
+        self._given_train_dataset.prepare_data()
+        self._test_dataset.prepare_data()
+        self._train_dataset, self._val_dataset = self._split_train_val_dataset(self._given_train_dataset)
+        return
+
+    def _split_train_val_dataset(self, dataset: Dataset) -> Tuple[Any, Any]:
         fold_ratio = 1 / self.N_FOLDS
         subsets = random_split(
             dataset,
@@ -116,11 +124,11 @@ class DataModule(lightning.LightningDataModule):
         return self.test_dataset.get_output_shape()
 
     @property
-    def train_dataset(self) -> ConcatDataset:
+    def train_dataset(self) -> Optional[ConcatDataset]:
         return self._train_dataset
 
     @property
-    def val_dataset(self) -> Subset:
+    def val_dataset(self) -> Optional[Subset]:
         return self._val_dataset
 
     @property

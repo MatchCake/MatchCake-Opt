@@ -3,7 +3,6 @@ from typing import Dict, Type, Union
 from ..utils import get_all_subclasses
 from .base_dataset import BaseDataset
 from .cifar10_dataset import Cifar10Dataset
-from .datamodule import DataModule
 from .digits2d import Digits2D
 from .mnist_dataset import MNISTDataset
 from .pathmnist_dataset import PathMNISTDataset

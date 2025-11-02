@@ -16,3 +16,6 @@ import warnings
 
 warnings.filterwarnings("ignore", category=Warning, module="docutils")
 warnings.filterwarnings("ignore", category=Warning, module="sphinx")
+
+from .datamodules import DataModule
+from .datasets import get_dataset_cls_by_name

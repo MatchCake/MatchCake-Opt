@@ -9,10 +9,11 @@ from typing import Any, Dict, List, Optional, Tuple, Type
 import numpy as np
 import pythonbasictools as pbt
 from ax.api.client import Client
+from ax.exceptions.core import SearchSpaceExhausted
 from pythonbasictools.collections_tools import list_insert_replace_at, ravel_dict
 from tqdm import tqdm
 
-from ..datasets.datamodule import DataModule
+from ..datamodules.datamodule import DataModule
 from ..modules.base_model import BaseModel
 from .lightning_pipeline import LightningPipeline
 
@@ -89,7 +90,12 @@ class AutoMLPipeline:
         )
         self.pipeline_args = pipeline_args
         self.history: List[Dict[str, Any]] = []
-        if not self.automl_overwrite_fit:
+        if self.automl_overwrite_fit:
+            try:
+                shutil.rmtree(self.checkpoint_folder)
+            except Exception:
+                pass
+        else:
             self.maybe_load()
 
     def __getstate__(self):
@@ -146,7 +152,10 @@ class AutoMLPipeline:
     def run(self):
         p_bar = tqdm(initial=len(self.history), total=self.automl_iterations, desc="AutoML iterations")
         for iteration in range(p_bar.n, p_bar.total):
-            trials = self.client.get_next_trials(max_trials=1)
+            try:
+                trials = self.client.get_next_trials(max_trials=1)
+            except SearchSpaceExhausted:
+                break
             for trial_index, parameters in trials.items():
                 new_y = self(parameters, iteration)
                 self.client.complete_trial(trial_index, {self.monitor: new_y[self.monitor]})
