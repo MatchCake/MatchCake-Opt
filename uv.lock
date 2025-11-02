@@ -1867,7 +1867,7 @@ requires-dist = [
     { name = "ax-platform", extras = ["mysql"], specifier = ">=1.0.0,<2.0.0" },
     { name = "importlib-metadata", specifier = ">=8.7.0,<9.0.0" },
     { name = "lightning", specifier = ">=2.5.2,<3.0.0" },
-    { name = "matchcake", specifier = ">=0.0.4,<0.0.5" },
+    { name = "matchcake", specifier = ">=0.0.4" },
     { name = "medmnist", specifier = ">=3.0.2,<4.0.0" },
     { name = "numpy", specifier = ">=1.23,<3.0.0" },
     { name = "psutil", specifier = ">=5.9.6" },
