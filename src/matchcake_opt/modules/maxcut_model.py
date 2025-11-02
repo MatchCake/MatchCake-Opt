@@ -74,5 +74,3 @@ class MaxcutModel(BaseModel):
         with torch.no_grad():
             samples = self.sample(x)
         return samples
-
-

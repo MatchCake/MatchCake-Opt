@@ -1,5 +1,5 @@
 import argparse
-from typing import Optional
+from typing import Any, Optional, Tuple
 
 import lightning
 import psutil
@@ -73,7 +73,7 @@ class DataModule(lightning.LightningDataModule):
         self._train_dataset, self._val_dataset = self._split_train_val_dataset(self._given_train_dataset)
         return
 
-    def _split_train_val_dataset(self, dataset: Dataset):
+    def _split_train_val_dataset(self, dataset: Dataset) -> Tuple[Any, Any]:
         fold_ratio = 1 / self.N_FOLDS
         subsets = random_split(
             dataset,
@@ -124,11 +124,11 @@ class DataModule(lightning.LightningDataModule):
         return self.test_dataset.get_output_shape()
 
     @property
-    def train_dataset(self) -> ConcatDataset:
+    def train_dataset(self) -> Optional[ConcatDataset]:
         return self._train_dataset
 
     @property
-    def val_dataset(self) -> Subset:
+    def val_dataset(self) -> Optional[Subset]:
         return self._val_dataset
 
     @property

@@ -50,6 +50,7 @@ dev = [
     "twine>=6.1.0,<7",
     "pytest-xdist>=3.7.0,<4",
     "isort>=6.0.1,<7",
+    "types-networkx>=3.5.0.20251001",
 ]
 docs = [
     "sphinx>=6.2.1,<6.3.0",
@@ -178,6 +179,10 @@ module = [
     "pandas",
     "psutil",
     "matchcake.utils",
+    "torch_geometric.data",
+    "torch_geometric.utils",
+    "matchcake.utils.torch_utils",
+    "torch_geometric.loader",
 ]
 ignore_missing_imports = true
 

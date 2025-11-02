@@ -1,10 +1,11 @@
 from pathlib import Path
-from typing import Union, Literal, Optional
+from typing import Literal, Optional, Union
 
-import torch
 import networkx as nx
-from torch_geometric.utils import from_networkx
+import torch
 from torch_geometric.data import Data
+from torch_geometric.utils import from_networkx
+
 from .base_dataset import BaseDataset
 
 
@@ -17,13 +18,13 @@ class MaxcutDataset(BaseDataset):
     }
 
     def __init__(
-            self,
-            n_nodes: int,
-            graph_type: Literal["regular", "erdos_renyi", "circular"],
-            seed: int = 0,
-            data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
-            train: bool = True,
-            **kwargs
+        self,
+        n_nodes: int,
+        graph_type: Literal["regular", "erdos_renyi", "circular"],
+        seed: int = 0,
+        data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
+        train: bool = True,
+        **kwargs,
     ):
         super().__init__(data_dir, train=train, **kwargs)
         self._n_nodes = n_nodes
@@ -65,7 +66,7 @@ class MaxcutDataset(BaseDataset):
         return 1
 
     def get_input_shape(self) -> tuple:
-        return (self._n_nodes, )
+        return (self._n_nodes,)
 
     def get_output_shape(self) -> tuple:
         return (1,)
@@ -87,7 +88,7 @@ class MaxcutDataset(BaseDataset):
         """
         if self._nx_graph is None:
             raise ValueError("Graph has not been built yet.")
-        weights = nx.get_edge_attributes(self._nx_graph, 'weight')
+        weights = nx.get_edge_attributes(self._nx_graph, "weight")
         lower_bound = -sum(weights.values()) if weights else -self._nx_graph.number_of_edges()
         return lower_bound
 
@@ -99,7 +100,7 @@ class MaxcutDataset(BaseDataset):
         """
         if self._nx_graph is None:
             raise ValueError("Graph has not been built yet.")
-        weights = nx.get_edge_attributes(self._nx_graph, 'weight')
+        weights = nx.get_edge_attributes(self._nx_graph, "weight")
         upper_bound = sum(weights.values()) if weights else self._nx_graph.number_of_edges()
         return upper_bound
 

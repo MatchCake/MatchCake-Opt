@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 from torch.utils.data import DataLoader
 
-from matchcake_opt.datasets.datamodule import DataModule
+from matchcake_opt.datamodules.datamodule import DataModule
 from matchcake_opt.datasets.digits2d import Digits2D
 
 

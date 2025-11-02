@@ -2,10 +2,6 @@ import argparse
 from copy import deepcopy
 from typing import Optional
 
-import lightning
-import psutil
-import torch
-from lightning_fabric.utilities.exceptions import MisconfigurationException
 from torch_geometric.loader import DataLoader
 
 from ..datasets.maxcut_dataset import MaxcutDataset
@@ -22,12 +18,12 @@ class MaxcutDataModule(DataModule):
 
     @classmethod
     def from_dataset_name(
-            cls,
-            dataset_name: str,
-            fold_id: int,
-            batch_size: int = 0,
-            random_state: int = 0,
-            num_workers: int = 0,
+        cls,
+        dataset_name: str,
+        fold_id: int,
+        batch_size: int = 0,
+        random_state: int = 0,
+        num_workers: int = 0,
     ) -> "DataModule":
         raise NotImplementedError("MaxcutDataModule does not support from_dataset_name method.")
 
@@ -45,10 +41,10 @@ class MaxcutDataModule(DataModule):
             fold_id=0,
             batch_size=1,
             random_state=0,
-            num_workers=0
+            num_workers=0,
         )
 
-    def _split_train_val_dataset(self, dataset: MaxcutDataset):
+    def _split_train_val_dataset(self, dataset: MaxcutDataset):  # type: ignore
         return dataset, None
 
     def train_dataloader(self):
@@ -89,13 +85,13 @@ class MaxcutDataModule(DataModule):
         return self.test_dataset.get_output_shape()
 
     @property
-    def train_dataset(self) -> MaxcutDataset:
-        return self._train_dataset
+    def train_dataset(self) -> MaxcutDataset:  # type: ignore
+        return self._train_dataset  # type: ignore
 
     @property
     def val_dataset(self):
         return self._val_dataset
 
     @property
-    def test_dataset(self) -> MaxcutDataset:
-        return self._test_dataset
+    def test_dataset(self) -> MaxcutDataset:  # type: ignore
+        return self._test_dataset  # type: ignore
