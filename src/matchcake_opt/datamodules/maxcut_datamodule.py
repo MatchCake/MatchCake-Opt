@@ -25,7 +25,7 @@ class MaxcutDataModule(DataModule):
         random_state: int = 0,
         num_workers: int = 0,
     ) -> "DataModule":
-        raise NotImplementedError("MaxcutDataModule does not support from_dataset_name method.")
+        raise NotImplementedError("MaxcutDataModule does not support from_dataset_name method.")  # pragma: no cover
 
     def __init__(
         self,

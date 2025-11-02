@@ -35,7 +35,9 @@ class MaxcutModel(BaseModel):
         return MetricCollection([], prefix="train_")
 
     def sample(self, x) -> torch.Tensor:
-        raise NotImplementedError("Child classes must implement the sample method that generates the cut solution.")
+        raise NotImplementedError(
+            "Child classes must implement the sample method that generates the cut solution."
+        )  # pragma: no cover
 
     def training_step(self, batch: Data, batch_idx):
         inputs = batch
