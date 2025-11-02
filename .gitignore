@@ -305,3 +305,4 @@ coverage.json
 /notebooks/Digits2D
 /notebooks/Cifar10
 /notebooks/data
+/.tmp

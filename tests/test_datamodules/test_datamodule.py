@@ -16,6 +16,7 @@ class TestDataModule:
         monkeypatch.setattr("matchcake_opt.datasets.digits2d.load_digits", mock)
         mock.return_value = (np.zeros((10, 8 * 8)), np.zeros((10,), dtype=int))
         datamodule = DataModule.from_dataset_name("digits2d", 0)
+        datamodule.prepare_data()
         return datamodule
 
     def test_from_dataset_name(self, monkeypatch):

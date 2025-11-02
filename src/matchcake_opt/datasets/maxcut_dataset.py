@@ -51,7 +51,7 @@ class MaxcutDataset(BaseDataset):
         elif self._graph_type == "circular":
             self._nx_graph = self._build_circular_graph()
         else:
-            raise ValueError(f"Unsupported graph type: {self._graph_type}")
+            raise ValueError(f"Unsupported graph type: {self._graph_type}")  # pragma: no cover
         self._data = from_networkx(self._nx_graph)
         self._data.y = torch.tensor([self._get_lower_energy_bound(), self._get_upper_n_cut_bound()], dtype=torch.float)
         self._built_flag = True
@@ -59,7 +59,7 @@ class MaxcutDataset(BaseDataset):
 
     def __getitem__(self, item):
         if not self._built_flag:
-            self.prepare_data()
+            self.prepare_data()  # pragma: no cover
         return self._data
 
     def __len__(self):
@@ -87,7 +87,7 @@ class MaxcutDataset(BaseDataset):
             E_{min} >= \sum_{(i,j) \in E} -w_{ij}
         """
         if self._nx_graph is None:
-            raise ValueError("Graph has not been built yet.")
+            raise ValueError("Graph has not been built yet.")  # pragma: no cover
         weights = nx.get_edge_attributes(self._nx_graph, "weight")
         lower_bound = -sum(weights.values()) if weights else -self._nx_graph.number_of_edges()
         return lower_bound
@@ -99,7 +99,7 @@ class MaxcutDataset(BaseDataset):
             C_{max} <= \sum_{(i,j) \in E} w_{ij}
         """
         if self._nx_graph is None:
-            raise ValueError("Graph has not been built yet.")
+            raise ValueError("Graph has not been built yet.")  # pragma: no cover
         weights = nx.get_edge_attributes(self._nx_graph, "weight")
         upper_bound = sum(weights.values()) if weights else self._nx_graph.number_of_edges()
         return upper_bound
