@@ -14,20 +14,20 @@ class TestRetinaMNISTDataset:
 
     @pytest.fixture(scope="class")
     def data_dir(self):
-        path = Path(".tmp") / "data_dir" / "pathmnist"
+        path = Path(".tmp") / "data_dir" / "retinamnist"
         yield path
         shutil.rmtree(path, ignore_errors=True)
 
     @pytest.fixture
     def data_mock(self, monkeypatch):
         cls_mock = MagicMock()
-        monkeypatch.setattr("matchcake_opt.datasets.pathmnist_dataset.PathMNIST", cls_mock)
+        monkeypatch.setattr("matchcake_opt.datasets.retinamnist_dataset.RetinaMNIST", cls_mock)
         mock = MagicMock()
         cls_mock.return_value = mock
-        mock.__getitem__.return_value = (torch.zeros(28, 28), torch.zeros(1).long())
+        mock.__getitem__.return_value = (torch.zeros(3, 28, 28), torch.zeros(1).long())
         mock.__len__.return_value = self.MOCK_LEN
-        mock.labels = np.arange(9)
-        monkeypatch.setattr("matchcake_opt.datasets.pathmnist_dataset.ConcatDataset", lambda *x: mock)
+        mock.labels = np.arange(5)
+        monkeypatch.setattr("matchcake_opt.datasets.retinamnist_dataset.ConcatDataset", lambda *x: mock)
         return mock
 
     @pytest.fixture
