@@ -12,7 +12,7 @@ from lightning.pytorch.callbacks.callback import Callback
 from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.profilers import SimpleProfiler
 
-from ..datasets.datamodule import DataModule
+from ..datamodules.datamodule import DataModule
 from ..modules.base_model import BaseModel
 from ..utils.model_checkpoint import ModelCheckpoint
 from ..utils.progress_bar import EpochProgressBar
@@ -125,22 +125,33 @@ class LightningPipeline:
 
     def run_validation(self) -> Dict[str, Any]:
         start_time = time.perf_counter()
-        metrics: Dict[str, Any] = self.trainer.validate(  # type: ignore
-            model=self.model,
-            datamodule=self.datamodule,
-            verbose=self.verbose,
-            ckpt_path="best",
-        )[0]
+        try:
+            metrics: List[Dict[str, Any]] = self.trainer.validate(  # type: ignore
+                model=self.model,
+                datamodule=self.datamodule,
+                verbose=self.verbose,
+                ckpt_path="best",
+            )
+        except ValueError:
+            metrics: List[Dict[str, Any]] = self.trainer.validate(  # type: ignore
+                model=self.model,
+                datamodule=self.datamodule,
+                verbose=self.verbose,
+                ckpt_path="last",
+            )
+        if len(metrics) == 0:
+            return {}
+        metrics_0: Dict[str, Any] = metrics[0]
         end_time = time.perf_counter()
-        metrics["validation_time"] = end_time - start_time
-        return metrics
+        metrics_0["validation_time"] = end_time - start_time
+        return metrics_0
 
-    def run_test(self) -> Dict[str, Any]:
+    def run_test(self, ckpt_path="best") -> Dict[str, Any]:
         start_time = time.perf_counter()
         metrics: Dict[str, Any] = self.trainer.test(  # type: ignore
             model=self.model,
             datamodule=self.datamodule,
-            ckpt_path="best",
+            ckpt_path=ckpt_path,
         )[0]
         end_time = time.perf_counter()
         metrics["test_time"] = end_time - start_time
