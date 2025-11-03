@@ -23,7 +23,7 @@ class RetinaMNISTDataset(BaseDataset):
             [
                 v2.ToImage(),
                 v2.ToDtype(torch.float32, scale=True),
-                v2.Normalize((0.399, 0.245, 0.156), (0.298, 0.201, 0.151)),
+                v2.Normalize((0.39862, 0.24519, 0.15615), (0.29827, 0.20057, 0.15053)),
             ]
         )
         target_transform = v2.Compose([self.to_scalar_tensor, v2.ToDtype(torch.long)])

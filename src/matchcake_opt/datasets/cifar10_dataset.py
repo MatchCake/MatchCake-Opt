@@ -21,7 +21,7 @@ class Cifar10Dataset(BaseDataset):
                 [
                     v2.ToImage(),
                     v2.ToDtype(torch.float32, scale=True),
-                    v2.Normalize((0.328, 0.328, 0.328), (0.278, 0.269, 0.268)),
+                    v2.Normalize((0.32768, 0.32768, 0.32768), (0.27755, 0.2693, 0.26812)),
                     # TODO: Add a param to add other transforms?
                     # transforms.RandomCrop(32, pad_if_needed=True),  # Randomly crop a 32x32 patch
                     # transforms.RandomHorizontalFlip(),  # Randomly flip horizontally

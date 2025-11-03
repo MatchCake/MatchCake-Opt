@@ -23,7 +23,7 @@ class PathMNISTDataset(BaseDataset):
             [
                 v2.ToImage(),
                 v2.ToDtype(torch.float32, scale=True),
-                v2.Normalize((0.238, 0.238, 0.238), (0.358, 0.309, 0.352)),
+                v2.Normalize((0.23778, 0.23778, 0.23778), (0.35807, 0.3089, 0.35218)),
             ]
         )
         target_transform = v2.Compose([self.to_scalar_tensor, v2.ToDtype(torch.long)])

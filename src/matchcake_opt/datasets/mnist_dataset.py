@@ -22,7 +22,7 @@ class MNISTDataset(BaseDataset):
                 [
                     v2.ToImage(),
                     v2.ToDtype(torch.float32, scale=True),
-                    v2.Normalize((0.1307,), (0.3081,)),
+                    v2.Normalize((0.13066,), (0.30811,)),
                     # TODO: Add a param to add other transforms?
                     # transforms.RandomCrop(32, pad_if_needed=True),  # Randomly crop a 32x32 patch
                     # transforms.RandomHorizontalFlip(),  # Randomly flip horizontally
