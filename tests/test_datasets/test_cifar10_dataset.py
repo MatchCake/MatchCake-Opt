@@ -40,11 +40,6 @@ class TestCifar10Dataset:
         assert datum[1].dtype == torch.long
         cifar10_mock.__getitem__.assert_called_once_with(0)
 
-    def test_to_long_tensor(self):
-        x = torch.zeros(0, dtype=torch.int)
-        y = Cifar10Dataset.to_long_tensor(x)
-        assert y.dtype == torch.long
-
     def test_len(self, cifar10_mock, data_dir):
         dataset = Cifar10Dataset(data_dir=data_dir, train=True)
         assert len(dataset) == self.MOCK_LEN

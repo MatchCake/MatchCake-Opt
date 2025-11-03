@@ -5,9 +5,7 @@ import numpy as np
 import torch
 from medmnist import RetinaMNIST
 from torch.utils.data import ConcatDataset
-from torchvision import transforms
-from torchvision.transforms import ToTensor
-from torchvision.transforms.v2 import Compose
+from torchvision.transforms import v2
 
 from .base_dataset import BaseDataset
 
@@ -19,19 +17,16 @@ class RetinaMNISTDataset(BaseDataset):
     def to_scalar_tensor(y: Sequence[int]):
         return torch.tensor(y).item()
 
-    @staticmethod
-    def to_long_tensor(y: Sequence[int]) -> torch.Tensor:
-        return torch.tensor(y, dtype=torch.long)
-
     def __init__(self, data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME, train: bool = True, **kwargs):
         super().__init__(data_dir, train, **kwargs)
-        transform = Compose(
+        transform = v2.Compose(
             [
-                ToTensor(),
-                transforms.Normalize(0.0, 1.0),
+                v2.ToImage(),
+                v2.ToDtype(torch.float32, scale=True),
+                v2.Normalize((0.39862, 0.24519, 0.15615), (0.29827, 0.20057, 0.15053)),
             ]
         )
-        target_transform = Compose([self.to_scalar_tensor, self.to_long_tensor])
+        target_transform = v2.Compose([self.to_scalar_tensor, v2.ToDtype(torch.long)])
         self._data = RetinaMNIST(
             root=self.data_dir,
             split="train" if self.train else "test",

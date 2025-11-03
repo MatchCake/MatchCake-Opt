@@ -51,6 +51,7 @@ dev = [
     "pytest-xdist>=3.7.0,<4",
     "isort>=6.0.1,<7",
     "types-networkx>=3.5.0.20251001",
+    "pip>=25.3",
 ]
 docs = [
     "sphinx>=6.2.1,<6.3.0",
