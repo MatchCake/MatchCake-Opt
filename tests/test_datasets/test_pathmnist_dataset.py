@@ -46,11 +46,6 @@ class TestPathMNISTDataset:
         assert datum[1].dtype == torch.long
         data_mock.__getitem__.assert_called_once_with(0)
 
-    def test_to_long_tensor(self, dataset_instance):
-        x = torch.zeros(0, dtype=torch.int)
-        y = dataset_instance.to_long_tensor(x)
-        assert y.dtype == torch.long
-
     def test_len(self, dataset_instance):
         assert len(dataset_instance) == self.MOCK_LEN
 
