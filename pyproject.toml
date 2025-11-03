@@ -22,16 +22,17 @@ dependencies = [
     "psutil>=5.9.6",
     "importlib-metadata (>=8.7.0,<9.0.0)",
     "torch (>=2.6.0,<3.0.0)",
-    "torchvision (>=0.21.0,<0.23.0)",
+    "torchvision (>=0.21.0)",
     "torchaudio (>=2.6.0,<3.0.0)",
     "lightning (>=2.5.2,<3.0.0)",
     "tensorboardx (>=2.6.4,<3.0.0)",
     "tensorboard (>=2.19.0,<3.0.0)",
     "ax-platform[mysql] (>=1.0.0,<2.0.0)",
     "torcheval (>=0.0.7,<0.0.8)",
-    "matchcake (>=0.0.4,<0.0.5)",
+    "matchcake (>=0.0.4)",
     "autoray (<=0.7.2)",
     "medmnist (>=3.0.2,<4.0.0)",
+    "torch-geometric>=2.7.0",
 ]
 dynamic = ["readme"]
 
@@ -49,6 +50,8 @@ dev = [
     "twine>=6.1.0,<7",
     "pytest-xdist>=3.7.0,<4",
     "isort>=6.0.1,<7",
+    "types-networkx>=3.5.0.20251001",
+    "pip>=25.3",
 ]
 docs = [
     "sphinx>=6.2.1,<6.3.0",
@@ -81,6 +84,7 @@ conflicts = [
   [
     { extra = "cpu" },
     { extra = "cu128" },
+    { extra = "cu130" },
   ],
 ]
 
@@ -93,15 +97,21 @@ cu128 = [
   "torch>=2.7.0",
   "torchvision>=0.22.0",
 ]
+cu130 = [
+  "torch>=2.7.0",
+  "torchvision>=0.23.0",
+]
 
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
   { index = "pytorch-cu128", extra = "cu128" },
+  { index = "pytorch-cu130", extra = "cu130" },
 ]
 torchvision = [
   { index = "pytorch-cpu", extra = "cpu" },
   { index = "pytorch-cu128", extra = "cu128" },
+  { index = "pytorch-cu130", extra = "cu130" },
 ]
 
 [[tool.uv.index]]
@@ -112,6 +122,11 @@ explicit = true
 [[tool.uv.index]]
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
 explicit = true
 
 [tool.setuptools.dynamic]
@@ -165,6 +180,10 @@ module = [
     "pandas",
     "psutil",
     "matchcake.utils",
+    "torch_geometric.data",
+    "torch_geometric.utils",
+    "matchcake.utils.torch_utils",
+    "torch_geometric.loader",
 ]
 ignore_missing_imports = true
 

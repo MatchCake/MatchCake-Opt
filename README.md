@@ -129,6 +129,7 @@ For more detailed examples see
 
 
 ## License
+[Apache License 2.0](LICENSE)
 
 
 ## Acknowledgements

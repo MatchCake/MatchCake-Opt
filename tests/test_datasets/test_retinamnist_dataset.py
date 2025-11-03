@@ -2,37 +2,40 @@ import shutil
 from pathlib import Path
 from unittest.mock import MagicMock
 
+import numpy as np
 import pytest
 import torch
 
-from matchcake_opt.datasets.mnist_dataset import MNISTDataset
+from matchcake_opt.datasets.retinamnist_dataset import RetinaMNISTDataset
 
 
-class TestMNISTDataset:
+class TestRetinaMNISTDataset:
     MOCK_LEN = 10
 
     @pytest.fixture(scope="class")
     def data_dir(self):
-        path = Path(".tmp") / "data_dir" / "mnist"
+        path = Path(".tmp") / "data_dir" / "retinamnist"
         yield path
         shutil.rmtree(path, ignore_errors=True)
 
     @pytest.fixture
     def data_mock(self, monkeypatch):
         cls_mock = MagicMock()
-        monkeypatch.setattr("matchcake_opt.datasets.mnist_dataset.MNIST", cls_mock)
+        monkeypatch.setattr("matchcake_opt.datasets.retinamnist_dataset.RetinaMNIST", cls_mock)
         mock = MagicMock()
         cls_mock.return_value = mock
-        mock.__getitem__.return_value = (torch.zeros(28, 28), torch.zeros(1).long())
+        mock.__getitem__.return_value = (torch.zeros(3, 28, 28), torch.zeros(1).long())
         mock.__len__.return_value = self.MOCK_LEN
+        mock.labels = np.arange(5)
+        monkeypatch.setattr("matchcake_opt.datasets.retinamnist_dataset.ConcatDataset", lambda *x: mock)
         return mock
 
     @pytest.fixture
     def dataset_instance(self, data_mock, data_dir):
-        return MNISTDataset(data_dir=data_dir, train=True)
+        return RetinaMNISTDataset(data_dir=data_dir, train=True)
 
     def test_init(self, data_mock, data_dir):
-        dataset = MNISTDataset(data_dir=data_dir, train=True)
+        dataset = RetinaMNISTDataset(data_dir=data_dir, train=True)
         assert dataset._data == data_mock
 
     def test_getitem(self, data_mock, dataset_instance):
@@ -47,4 +50,9 @@ class TestMNISTDataset:
         assert len(dataset_instance) == self.MOCK_LEN
 
     def test_output_shape(self, dataset_instance):
-        assert dataset_instance.get_output_shape() == (10,)
+        assert dataset_instance.get_output_shape() == (5,)
+
+    def test_to_scalar_tensor(self, dataset_instance):
+        x = torch.tensor([1])
+        y = dataset_instance.to_scalar_tensor(x)
+        assert isinstance(y, int)

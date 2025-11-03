@@ -3,15 +3,15 @@ from typing import Sequence, Union
 
 import numpy as np
 import torch
-from medmnist import PathMNIST
+from medmnist import RetinaMNIST
 from torch.utils.data import ConcatDataset
 from torchvision.transforms import v2
 
 from .base_dataset import BaseDataset
 
 
-class PathMNISTDataset(BaseDataset):
-    DATASET_NAME = "PathMNIST"
+class RetinaMNISTDataset(BaseDataset):
+    DATASET_NAME = "RetinaMNIST"
 
     @staticmethod
     def to_scalar_tensor(y: Sequence[int]):
@@ -23,11 +23,11 @@ class PathMNISTDataset(BaseDataset):
             [
                 v2.ToImage(),
                 v2.ToDtype(torch.float32, scale=True),
-                v2.Normalize((0.23778, 0.23778, 0.23778), (0.35807, 0.3089, 0.35218)),
+                v2.Normalize((0.39862, 0.24519, 0.15615), (0.29827, 0.20057, 0.15053)),
             ]
         )
         target_transform = v2.Compose([self.to_scalar_tensor, v2.ToDtype(torch.long)])
-        self._data = PathMNIST(
+        self._data = RetinaMNIST(
             root=self.data_dir,
             split="train" if self.train else "test",
             download=True,
@@ -36,7 +36,7 @@ class PathMNISTDataset(BaseDataset):
         )
         self._n_classes = np.unique(self._data.labels).size
         if self.train:
-            val_dataset = PathMNIST(
+            val_dataset = RetinaMNIST(
                 root=self.data_dir, split="val", download=True, transform=transform, target_transform=target_transform
             )
             self._data = ConcatDataset([self._data, val_dataset])

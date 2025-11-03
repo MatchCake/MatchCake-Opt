@@ -30,7 +30,7 @@ jobs:
 
     - name: Build the sphinx docs
       run: |
-        uv run sphinx-apidoc -f -o ./sphinx/source ./src/bolightningpipeline
+        uv run sphinx-apidoc -f -o ./sphinx/source ./src/matchcake_opt
         uv run make -C sphinx clean
         uv run python sphinx/clean_html_files.py
         uv run make -C sphinx html
