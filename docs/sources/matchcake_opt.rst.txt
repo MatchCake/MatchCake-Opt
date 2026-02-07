@@ -1,0 +1,22 @@
+matchcake\_opt package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   matchcake_opt.datamodules
+   matchcake_opt.datasets
+   matchcake_opt.modules
+   matchcake_opt.tr_pipeline
+   matchcake_opt.utils
+
+Module contents
+---------------
+
+.. automodule:: matchcake_opt
+   :members:
+   :undoc-members:
+   :show-inheritance:

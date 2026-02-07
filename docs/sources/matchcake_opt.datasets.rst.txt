@@ -1,0 +1,69 @@
+matchcake\_opt.datasets package
+===============================
+
+Submodules
+----------
+
+matchcake\_opt.datasets.base\_dataset module
+--------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.base_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.cifar10\_dataset module
+-----------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.cifar10_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.digits2d module
+---------------------------------------
+
+.. automodule:: matchcake_opt.datasets.digits2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.maxcut\_dataset module
+----------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.maxcut_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.mnist\_dataset module
+---------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.mnist_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.pathmnist\_dataset module
+-------------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.pathmnist_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datasets.retinamnist\_dataset module
+---------------------------------------------------
+
+.. automodule:: matchcake_opt.datasets.retinamnist_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: matchcake_opt.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

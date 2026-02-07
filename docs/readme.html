@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MatchCake-Opt &mdash; MatchCake-Opt  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to MatchCake-Opt’s documentation!" href="index.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                MatchCake-Opt
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>MatchCake-Opt</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="sources/readme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MatchCake-Opt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-usage-exemple">Quick Usage Exemple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="matchcake-opt">
+<h1>MatchCake-Opt<a class="headerlink" href="#matchcake-opt" title="Permalink to this heading">¶</a></h1>
+<a class="reference external image-reference" href="https://github.com/MatchCake/MatchCake-Opt/stargazers"><img alt="Star on GitHub" src="https://img.shields.io/github/stars/MatchCake/MatchCake-Opt.svg?style=social" /></a>
+<a class="reference external image-reference" href="https://github.com/MatchCake/MatchCake-Opt/network/members"><img alt="GitHub forks" src="https://img.shields.io/github/forks/MatchCake/MatchCake-Opt?style=social" /></a>
+<a class="reference external image-reference" href="https://www.python.org/downloads/release/python-310/"><img alt="Python 3.10" src="https://img.shields.io/badge/python-3.10-blue.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/MatchCake-Opt"><img alt="downloads" src="https://img.shields.io/pypi/dm/MatchCake-Opt" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/MatchCake-Opt"><img alt="PyPI version" src="https://img.shields.io/pypi/v/MatchCake-Opt" /></a>
+<a class="reference external image-reference" href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/tests.yml/badge.svg"><img alt="Tests Workflow" src="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/tests.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/build_dist.yml/badge.svg"><img alt="Dist Workflow" src="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/build_dist.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/docs.yml/badge.svg"><img alt="Doc Workflow" src="https://github.com/MatchCake/MatchCake-Opt/actions/workflows/docs.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
+<a class="reference external image-reference" href="https://pycqa.github.io/isort/"><img alt="Imports: isort" src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&amp;labelColor=ef8336" /></a>
+</section>
+<section id="description">
+<h1>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h1>
+<p>This package is plugin of <a class="reference external" href="https://github.com/MatchCake/MatchCake">MatchCake</a>. The main goal of this package is
+to implement optimization pipelines and torch-modules that are used in MatchCake’s projects.</p>
+<p>If you’d like to request a new feature, dataset, or module, or if you have any questions or documentation requests, feel free to open a new GitHub issue <a class="reference external" href="https://github.com/MatchCake/MatchCake-Opt/issues">here</a>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<section id="for-users">
+<h3>For users<a class="headerlink" href="#for-users" title="Permalink to this heading">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">python</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MatchCake/MatchCake-Opt
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">uv</span></code> installed,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;git+https://github.com/MatchCake/MatchCake-Opt&quot;</span>
+</pre></div>
+</div>
+<p>To install the package with cu128 (CUDA), add <code class="docutils literal notranslate"><span class="pre">--extra</span> <span class="pre">cu128</span></code> to the installation commands above.</p>
+</section>
+<section id="for-developers">
+<h3>For developers<a class="headerlink" href="#for-developers" title="Permalink to this heading">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">python</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed, run the following commands to install the dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>uv
+uv<span class="w"> </span>sync<span class="w"> </span>--dev
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">uv</span></code> installed, run the following commands to install the dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>venv<span class="w"> </span>.venv
+uv<span class="w"> </span>sync<span class="w"> </span>--dev
+</pre></div>
+</div>
+<p>If you’d like to contribute to this repository, please do so by submitting pull requests to the <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch. Thank you!</p>
+</section>
+</section>
+<section id="quick-usage-exemple">
+<h2>Quick Usage Exemple<a class="headerlink" href="#quick-usage-exemple" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ax</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChoiceParameterConfig</span><span class="p">,</span> <span class="n">RangeParameterConfig</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matchcake_opt.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matchcake_opt.modules.classification_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassificationModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matchcake_opt.tr_pipeline.automl_pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoMLPipeline</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LinearNN</span><span class="p">(</span><span class="n">ClassificationModel</span><span class="p">):</span>
+    <span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;LinearNN&quot;</span>
+    <span class="n">HP_CONFIGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">RangeParameterConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+            <span class="n">parameter_type</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">,</span>
+            <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">RangeParameterConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;n_neurons&quot;</span><span class="p">,</span>
+            <span class="n">parameter_type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2048</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">input_shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+            <span class="n">output_shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+            <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2e-4</span><span class="p">,</span>
+            <span class="n">n_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_hyperparameters</span><span class="p">(</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;n_neurons&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LazyLinear</span><span class="p">(</span><span class="n">n_neurons</span><span class="p">),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LazyLinear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span><span class="p">))</span>
+
+<span class="n">datamodule</span> <span class="o">=</span> <span class="n">DataModule</span><span class="o">.</span><span class="n">from_dataset_name</span><span class="p">(</span><span class="s2">&quot;Digits2D&quot;</span><span class="p">,</span> <span class="n">fold_id</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">automl_pipeline</span> <span class="o">=</span> <span class="n">AutoMLPipeline</span><span class="p">(</span><span class="n">model_cls</span><span class="o">=</span><span class="n">LinearNN</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">datamodule</span><span class="p">)</span>
+<span class="n">automl_pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">lt_pipeline</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">automl_pipeline</span><span class="o">.</span><span class="n">run_best_pipeline</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚡&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Validation Metrics:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;⚡&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">test_metrics</span> <span class="o">=</span> <span class="n">lt_pipeline</span><span class="o">.</span><span class="n">run_test</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚡&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Metrics:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_metrics</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;⚡&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="notebooks">
+<h2>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this heading">¶</a></h2>
+<p>For more detailed examples see</p>
+<ul class="simple">
+<li><p><a class="reference external" href="notebooks/ligthning_pipeline_tutorial.ipynb">notebooks/ligthning_pipeline_tutorial.ipynb</a> for an introduction to the lightning pipeline.</p></li>
+<li><p><a class="reference external" href="notebooks/automl_pipeline_tutorial.ipynb">notebooks/automl_pipeline_tutorial.ipynb</a> for an introduction to the AutoML pipeline.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="LICENSE">Apache License 2.0</a></p>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@INPROCEEDINGS</span><span class="p">{</span><span class="mi">10821385</span><span class="p">,</span>
+  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Gince</span><span class="p">,</span> <span class="n">Jérémie</span> <span class="ow">and</span> <span class="n">Pagé</span><span class="p">,</span> <span class="n">Jean</span><span class="o">-</span><span class="n">Michel</span> <span class="ow">and</span> <span class="n">Armenta</span><span class="p">,</span> <span class="n">Marco</span> <span class="ow">and</span> <span class="n">Sarkar</span><span class="p">,</span> <span class="n">Ayana</span> <span class="ow">and</span> <span class="n">Kourtis</span><span class="p">,</span> <span class="n">Stefanos</span><span class="p">},</span>
+  <span class="n">booktitle</span><span class="o">=</span><span class="p">{</span><span class="mi">2024</span> <span class="n">IEEE</span> <span class="n">International</span> <span class="n">Conference</span> <span class="n">on</span> <span class="n">Quantum</span> <span class="n">Computing</span> <span class="ow">and</span> <span class="n">Engineering</span> <span class="p">(</span><span class="n">QCE</span><span class="p">)},</span>
+  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Fermionic</span> <span class="n">Machine</span> <span class="n">Learning</span><span class="p">},</span>
+  <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2024</span><span class="p">},</span>
+  <span class="n">volume</span><span class="o">=</span><span class="p">{</span><span class="mi">01</span><span class="p">},</span>
+  <span class="n">number</span><span class="o">=</span><span class="p">{},</span>
+  <span class="n">pages</span><span class="o">=</span><span class="p">{</span><span class="mi">1672</span><span class="o">-</span><span class="mi">1678</span><span class="p">},</span>
+  <span class="n">keywords</span><span class="o">=</span><span class="p">{</span><span class="n">Runtime</span><span class="p">;</span><span class="n">Quantum</span> <span class="n">entanglement</span><span class="p">;</span><span class="n">Computational</span> <span class="n">modeling</span><span class="p">;</span><span class="n">Benchmark</span> <span class="n">testing</span><span class="p">;</span><span class="n">Rendering</span> <span class="p">(</span><span class="n">computer</span> <span class="n">graphics</span><span class="p">);</span><span class="n">Hardware</span><span class="p">;</span><span class="n">Kernel</span><span class="p">;</span><span class="n">Integrated</span> <span class="n">circuit</span> <span class="n">modeling</span><span class="p">;</span><span class="n">Quantum</span> <span class="n">circuit</span><span class="p">;</span><span class="n">Standards</span><span class="p">;</span><span class="n">Quantum</span> <span class="n">machine</span> <span class="n">learning</span><span class="p">;</span><span class="n">quantum</span> <span class="n">kernel</span> <span class="n">methods</span><span class="p">;</span><span class="n">matchgate</span> <span class="n">circuits</span><span class="p">;</span><span class="n">fermionic</span> <span class="n">quantum</span> <span class="n">computation</span><span class="p">;</span><span class="n">data</span> <span class="n">classification</span><span class="p">},</span>
+  <span class="n">doi</span><span class="o">=</span><span class="p">{</span><span class="mf">10.1109</span><span class="o">/</span><span class="n">QCE60285</span><span class="mf">.2024.00195</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="static/documentation_options.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="static/sphinx_highlight.js"></script>
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2025, Jérémie Gince.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.2.1.
+        </div>
+    </div>  
+
+</body>
+</html>

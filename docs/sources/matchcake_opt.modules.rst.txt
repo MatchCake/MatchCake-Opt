@@ -1,0 +1,37 @@
+matchcake\_opt.modules package
+==============================
+
+Submodules
+----------
+
+matchcake\_opt.modules.base\_model module
+-----------------------------------------
+
+.. automodule:: matchcake_opt.modules.base_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.modules.classification\_model module
+---------------------------------------------------
+
+.. automodule:: matchcake_opt.modules.classification_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.modules.maxcut\_model module
+-------------------------------------------
+
+.. automodule:: matchcake_opt.modules.maxcut_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: matchcake_opt.modules
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,29 @@
+matchcake\_opt.tr\_pipeline package
+===================================
+
+Submodules
+----------
+
+matchcake\_opt.tr\_pipeline.automl\_pipeline module
+---------------------------------------------------
+
+.. automodule:: matchcake_opt.tr_pipeline.automl_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.tr\_pipeline.lightning\_pipeline module
+------------------------------------------------------
+
+.. automodule:: matchcake_opt.tr_pipeline.lightning_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: matchcake_opt.tr_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:

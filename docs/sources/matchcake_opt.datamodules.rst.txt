@@ -1,0 +1,29 @@
+matchcake\_opt.datamodules package
+==================================
+
+Submodules
+----------
+
+matchcake\_opt.datamodules.datamodule module
+--------------------------------------------
+
+.. automodule:: matchcake_opt.datamodules.datamodule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+matchcake\_opt.datamodules.maxcut\_datamodule module
+----------------------------------------------------
+
+.. automodule:: matchcake_opt.datamodules.maxcut_datamodule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: matchcake_opt.datamodules
+   :members:
+   :undoc-members:
+   :show-inheritance:
