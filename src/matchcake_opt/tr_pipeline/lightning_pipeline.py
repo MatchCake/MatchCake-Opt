@@ -118,10 +118,37 @@ class LightningPipeline:
             ckpt_path=(None if self.overwrite_fit else "last"),
         )
         end_time = time.perf_counter()
-        metrics: Dict[str, Any] = self.run_validation()
-        metrics["training_time"] = end_time - start_time
-        self.save_metrics_to_checkpoint_folder(metrics, name="validation_metrics")
-        return metrics
+        train_metrics: Dict[str, Any] = self.run_train_validation()
+        train_metrics["training_time"] = end_time - start_time
+        self.save_metrics_to_checkpoint_folder(train_metrics, name="validation_metrics")
+        val_metrics: Dict[str, Any] = self.run_validation()
+        return {**train_metrics, **val_metrics}
+
+    def run_train_validation(self, **additional_metrics) -> Dict[str, Any]:
+        start_time = time.perf_counter()
+        try:
+            metrics: List[Dict[str, Any]] = self.trainer.validate(  # type: ignore
+                model=self.model,
+                dataloaders=[self.datamodule.train_dataloader()],
+                verbose=self.verbose,
+                ckpt_path="best",
+            )
+        except ValueError:
+            metrics: List[Dict[str, Any]] = self.trainer.validate(  # type: ignore
+                model=self.model,
+                dataloaders=[self.datamodule.train_dataloader()],
+                verbose=self.verbose,
+                ckpt_path="last",
+            )
+        if len(metrics) == 0:
+            return {}
+        metrics_0: Dict[str, Any] = metrics[0]
+        end_time = time.perf_counter()
+        metrics_0["train_validation_time"] = end_time - start_time
+        metrics_0.update(additional_metrics)
+        metrics_0 = {k.replace("val_", "train_"): v for k, v in metrics_0.items()}
+        self.save_metrics_to_checkpoint_folder(metrics_0, name="train_metrics")
+        return metrics_0
 
     def run_validation(self) -> Dict[str, Any]:
         start_time = time.perf_counter()
@@ -144,6 +171,7 @@ class LightningPipeline:
         metrics_0: Dict[str, Any] = metrics[0]
         end_time = time.perf_counter()
         metrics_0["validation_time"] = end_time - start_time
+        self.save_metrics_to_checkpoint_folder(metrics_0, name="validation_metrics")
         return metrics_0
 
     def run_test(self, ckpt_path="best") -> Dict[str, Any]:
