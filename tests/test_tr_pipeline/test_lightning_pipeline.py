@@ -58,5 +58,9 @@ class TestLightningPipeline:
     def test_run_and_run_test(self, pipeline_instance):
         metrics = pipeline_instance.run()
         assert isinstance(metrics, dict)
+        assert "val_loss" in metrics
+        assert "train_loss" in metrics
+        assert "test_loss" not in metrics
         test_metrics = pipeline_instance.run_test()
         assert isinstance(test_metrics, dict)
+        assert "test_loss" in test_metrics
