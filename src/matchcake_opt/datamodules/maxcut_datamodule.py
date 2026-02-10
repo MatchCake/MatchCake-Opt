@@ -20,10 +20,12 @@ class MaxcutDataModule(DataModule):
     def from_dataset_name(
         cls,
         dataset_name: str,
-        fold_id: int,
-        batch_size: int = 0,
-        random_state: int = 0,
-        num_workers: int = 0,
+        split_id: int,
+        *,
+        train_val_split: float = DataModule.DEFAULT_TRAIN_VAL_SPLIT,
+        batch_size: int = DataModule.DEFAULT_BATCH_SIZE,
+        random_state: int = DataModule.DEFAULT_RANDOM_STATE,
+        num_workers: int = DataModule.DEFAULT_NUM_WORKERS,
     ) -> "DataModule":
         raise NotImplementedError("MaxcutDataModule does not support from_dataset_name method.")  # pragma: no cover
 
@@ -38,7 +40,7 @@ class MaxcutDataModule(DataModule):
         super().__init__(
             train_dataset=train_dataset,
             test_dataset=test_dataset,
-            fold_id=0,
+            split_id=0,
             batch_size=1,
             random_state=0,
             num_workers=0,
