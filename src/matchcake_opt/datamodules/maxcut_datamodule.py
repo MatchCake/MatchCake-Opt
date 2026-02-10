@@ -38,7 +38,7 @@ class MaxcutDataModule(DataModule):
         super().__init__(
             train_dataset=train_dataset,
             test_dataset=test_dataset,
-            fold_id=0,
+            split_id=0,
             batch_size=1,
             random_state=0,
             num_workers=0,

@@ -11,7 +11,7 @@ from ..datasets.base_dataset import BaseDataset
 
 class DataModule(lightning.LightningDataModule):
     DEFAULT_RANDOM_STATE = 0
-    N_FOLDS = 5
+    DEFAULT_TRAIN_VAL_SPLIT = 0.85
     DEFAULT_BATCH_SIZE = 32
     DEFAULT_NUM_WORKERS = min(2, psutil.cpu_count(logical=True) - 1)
 
@@ -19,7 +19,9 @@ class DataModule(lightning.LightningDataModule):
     def from_dataset_name(
         cls,
         dataset_name: str,
-        fold_id: int,
+        split_id: int,
+        *,
+        train_val_split: float = DEFAULT_TRAIN_VAL_SPLIT,
         batch_size: int = DEFAULT_BATCH_SIZE,
         random_state: int = DEFAULT_RANDOM_STATE,
         num_workers: int = DEFAULT_NUM_WORKERS,
@@ -29,7 +31,8 @@ class DataModule(lightning.LightningDataModule):
         return cls(
             train_dataset=get_dataset_cls_by_name(dataset_name)(train=True),
             test_dataset=get_dataset_cls_by_name(dataset_name)(train=False),
-            fold_id=fold_id,
+            split_id=split_id,
+            train_val_split=train_val_split,
             batch_size=batch_size,
             random_state=random_state,
             num_workers=num_workers,
@@ -50,17 +53,21 @@ class DataModule(lightning.LightningDataModule):
         self,
         train_dataset: BaseDataset,
         test_dataset: BaseDataset,
-        fold_id: int,
+        split_id: int,
+        *,
+        train_val_split: float = DEFAULT_TRAIN_VAL_SPLIT,
         batch_size: int = DEFAULT_BATCH_SIZE,
         random_state: int = DEFAULT_RANDOM_STATE,
         num_workers: int = DEFAULT_NUM_WORKERS,
     ):
         super().__init__()
         assert batch_size > 0, f"Batch size must be positive, got {batch_size}"
+        assert train_val_split > 0, f"Train split must be positive, got {train_val_split}"
+        assert train_val_split <= 1, f"Train split must be at most 1, got {train_val_split}"
+        self._train_val_split = train_val_split
         self._batch_size = batch_size
         self._random_state = random_state
-        assert 0 <= fold_id < self.N_FOLDS, f"Fold id {fold_id} is out of range [0, {self.N_FOLDS})"
-        self._fold_id = fold_id
+        self._split_id = split_id
         self._given_train_dataset = train_dataset
         self._test_dataset = test_dataset
         self._num_workers = num_workers
@@ -74,16 +81,10 @@ class DataModule(lightning.LightningDataModule):
         return
 
     def _split_train_val_dataset(self, dataset: Dataset) -> Tuple[Any, Any]:
-        fold_ratio = 1 / self.N_FOLDS
-        subsets = random_split(
+        train_subset, val_subset = random_split(
             dataset,
-            lengths=[fold_ratio for _ in range(self.N_FOLDS)],
-            generator=torch.Generator().manual_seed(self._random_state),
-        )
-        val_subset = subsets[self._fold_id]
-        train_subset_indexes = [i for i in range(self.N_FOLDS) if i != self._fold_id]
-        train_subset: torch.utils.data.Dataset = torch.utils.data.ConcatDataset(
-            [subsets[i] for i in train_subset_indexes]
+            lengths=[self._train_val_split, 1 - self._train_val_split],
+            generator=torch.Generator().manual_seed(self._split_id),
         )
         return train_subset, val_subset
 
@@ -124,7 +125,7 @@ class DataModule(lightning.LightningDataModule):
         return self.test_dataset.get_output_shape()
 
     @property
-    def train_dataset(self) -> Optional[ConcatDataset]:
+    def train_dataset(self) -> Optional[Subset]:
         return self._train_dataset
 
     @property
