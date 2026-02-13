@@ -7,6 +7,7 @@ from pathlib import Path, PureWindowsPath
 from typing import Any, Dict, List, Optional, Type, Union
 
 import torch
+from torch.autograd import inference_mode
 from lightning import Trainer
 from lightning.pytorch.callbacks.callback import Callback
 from lightning.pytorch.loggers import TensorBoardLogger
@@ -124,6 +125,7 @@ class LightningPipeline:
         val_metrics: Dict[str, Any] = self.run_validation()
         return {**train_metrics, **val_metrics}
 
+    @inference_mode()
     def run_train_validation(self, **additional_metrics) -> Dict[str, Any]:
         start_time = time.perf_counter()
         try:
@@ -150,6 +152,7 @@ class LightningPipeline:
         self.save_metrics_to_checkpoint_folder(metrics_0, name="train_metrics")
         return metrics_0
 
+    @inference_mode()
     def run_validation(self) -> Dict[str, Any]:
         start_time = time.perf_counter()
         try:
@@ -174,6 +177,7 @@ class LightningPipeline:
         self.save_metrics_to_checkpoint_folder(metrics_0, name="validation_metrics")
         return metrics_0
 
+    @inference_mode()
     def run_test(self, ckpt_path="best") -> Dict[str, Any]:
         start_time = time.perf_counter()
         metrics: Dict[str, Any] = self.trainer.test(  # type: ignore
