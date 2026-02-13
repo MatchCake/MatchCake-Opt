@@ -7,11 +7,11 @@ from pathlib import Path, PureWindowsPath
 from typing import Any, Dict, List, Optional, Type, Union
 
 import torch
-from torch.autograd import inference_mode
 from lightning import Trainer
 from lightning.pytorch.callbacks.callback import Callback
 from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.profilers import SimpleProfiler
+from torch.autograd import inference_mode
 
 from ..datamodules.datamodule import DataModule
 from ..modules.base_model import BaseModel
