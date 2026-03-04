@@ -14,13 +14,14 @@ class MaxcutDataset(BaseDataset):
     GRAPH_TYPES_TO_PARAMS = {
         "regular": ["d"],
         "erdos_renyi": ["p"],
+        "weighted_erdos_renyi": ["p"],
         "circular": [],
     }
 
     def __init__(
         self,
         n_nodes: int,
-        graph_type: Literal["regular", "erdos_renyi", "circular"],
+        graph_type: Literal["regular", "erdos_renyi", "circular", "weighted_erdos_renyi"],
         seed: int = 0,
         data_dir: Union[str, Path] = Path("./data/") / DATASET_NAME,
         train: bool = True,
@@ -48,6 +49,8 @@ class MaxcutDataset(BaseDataset):
             self._nx_graph = self._build_regular_graph()
         elif self._graph_type == "erdos_renyi":
             self._nx_graph = self._build_erdos_renyi_graph()
+        elif self._graph_type == "weighted_erdos_renyi":
+            self._nx_graph = self._build_weighted_erdos_renyi_graph()
         elif self._graph_type == "circular":
             self._nx_graph = self._build_circular_graph()
         else:
@@ -76,6 +79,67 @@ class MaxcutDataset(BaseDataset):
 
     def _build_erdos_renyi_graph(self) -> nx.Graph:
         return nx.erdos_renyi_graph(self._n_nodes, self._kwargs["p"], seed=self._seed)
+
+    def _build_weighted_erdos_renyi_graph(self) -> nx.Graph:
+        """
+        Builds an Erdos-Renyi graph where each existing edge (i, j) is assigned a weight.
+
+        Parameters (via **kwargs):
+            p: float
+            weight_distribution: {"uniform", "normal", "exponential"} (default: "uniform")
+
+            If weight_distribution == "uniform":
+                weight_low: float (default: 0.0)
+                weight_high: float (default: 1.0)
+
+            If weight_distribution == "normal":
+                weight_mean: float (default: 0.0)
+                weight_std: float (default: 1.0)
+
+            If weight_distribution == "exponential":
+                weight_rate: float (default: 1.0)   # rate = 1/scale
+
+        Notes:
+            - Weights are stored as the edge attribute "weight".
+            - Sampling is reproducible w.r.t. self._seed.
+        """
+        g = nx.erdos_renyi_graph(self._n_nodes, self._kwargs["p"], seed=self._seed)
+
+        gen = torch.Generator()
+        gen.manual_seed(self._seed)
+
+        dist = str(self._kwargs.get("weight_distribution", "uniform")).lower()
+
+        for edge in g.edges():
+            if dist == "uniform":
+                low = float(self._kwargs.get("weight_low", -1.0))
+                high = float(self._kwargs.get("weight_high", 1.0))
+                if high <= low:
+                    raise ValueError("For uniform weights, require weight_high > weight_low.")
+                w = low + (high - low) * torch.rand((), generator=gen)
+
+            elif dist == "normal":
+                mean = float(self._kwargs.get("weight_mean", 0.0))
+                std = float(self._kwargs.get("weight_std", 1.0))
+                if std <= 0.0:
+                    raise ValueError("For normal weights, require weight_std > 0.")
+                w = torch.normal(mean=mean, std=std, size=(), generator=gen)
+
+            elif dist == "exponential":
+                rate = float(self._kwargs.get("weight_rate", 1.0))
+                if rate <= 0.0:
+                    raise ValueError("For exponential weights, require weight_rate > 0.")
+                u01 = torch.rand((), generator=gen)
+                w = -torch.log1p(-u01) / rate  # inverse-CDF sampling
+
+            else:
+                raise ValueError(
+                    f"Unsupported weight_distribution '{dist}'. " "Expected one of: 'uniform', 'normal', 'exponential'."
+                )
+
+            g.edges[edge]["weight"] = float(w.item())
+
+        return g
 
     def _build_circular_graph(self) -> nx.Graph:
         return nx.circulant_graph(self._n_nodes, [1])

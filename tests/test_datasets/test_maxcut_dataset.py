@@ -10,6 +10,9 @@ from matchcake_opt.datasets.maxcut_dataset import MaxcutDataset
         ("circular", {"n_nodes": 3}),
         ("erdos_renyi", {"n_nodes": 3, "p": 0.2}),
         ("regular", {"n_nodes": 4, "d": 3}),
+        ("weighted_erdos_renyi", {"n_nodes": 3, "p": 0.2, "weight_distribution": "normal"}),
+        ("weighted_erdos_renyi", {"n_nodes": 3, "p": 0.2, "weight_distribution": "exponential"}),
+        ("weighted_erdos_renyi", {"n_nodes": 3, "p": 0.2, "weight_distribution": "uniform"}),
     ],
 )
 class TestMaxcutDataset:
