@@ -29,8 +29,7 @@ dependencies = [
     "tensorboard (>=2.19.0,<3.0.0)",
     "ax-platform[mysql] (>=1.0.0,<2.0.0)",
     "torcheval (>=0.0.7,<0.0.8)",
-    "matchcake>=0.1.2",
-    "autoray (<=0.7.2)",
+    "matchcake>=0.2.2",
     "medmnist (>=3.0.2,<4.0.0)",
     "torch-geometric>=2.7.0",
 ]
